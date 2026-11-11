@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#EEF9F7">
+<title>Panel de Bienestar a tu puerta</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M5 37V19C5 10.7 11.7 4 20 4s15 6.7 15 15v18z' fill='%23D2F0EB' stroke='%230E8178' stroke-width='2.4'/%3E%3Crect x='17.6' y='14' width='4.8' height='15' rx='1.4' fill='%230E8178'/%3E%3Crect x='12.5' y='19.1' width='15' height='4.8' rx='1.4' fill='%230E8178'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Panel privado: una columna en celular, bandeja a la izquierda y ficha a la derecha en pantallas grandes. Tema claro turquesa/pastel. */
+:root {
+  color-scheme: light;
+  --bg: #EEF9F7; --surface: #FFFFFF; --ink: #17393D; --muted: #476A6E; --line: #CDE6E2;
+  --teal: #0E8178; --teal-dark: #0B6C64; --teal-soft: #D2F0EB; --aqua: #A5E3D9;
+  --peach: #FFE4D6; --peach-ink: #7A3E22; --alert-bg: #FFF1D9; --alert-ink: #6B4300; --alert-line: #F2D49B;
+  --ok-bg: #DDF5E6; --ok-ink: #14532D; --bad-bg: #FDE6E1; --bad-ink: #8A2A12;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scrollbar-width: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; -webkit-text-size-adjust: 100%; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; margin: 0; text-wrap: balance; }
+h1 { font-size: 26px; } h2 { font-size: 22px; } h3 { font-size: 18px; }
+p { margin: 0; }
+.small { font-size: 14px; color: var(--muted); }
+.mini { font-size: 12.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
+:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; border-radius: 6px; }
+.wrap { max-width: 1100px; margin-inline: auto; padding-inline: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+[hidden] { display: none !important; }
+
+.btn { font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; text-decoration: none; text-align: center; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 12px; border: 2px solid var(--teal); background: var(--teal); color: #fff; }
+.btn:hover { background: var(--teal-dark); border-color: var(--teal-dark); }
+.btn.ghost { background: var(--surface); color: var(--teal); }
+.btn.ghost:hover { background: var(--teal-soft); }
+.btn.small { min-height: 38px; padding: 0 14px; font-size: 14px; }
+.btn.danger { border-color: #B3541E; color: #9A3E0C; background: var(--surface); }
+.btn:disabled { opacity: .55; cursor: not-allowed; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.row.end { justify-content: flex-end; }
+
+input[type=text], input[type=email], input[type=password], input[type=number], input[type=date], input[type=time], select, textarea {
+  width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: #fff; border: 1.5px solid #9FC7C1; border-radius: 10px; padding: 10px 12px; min-height: 46px; }
+textarea { min-height: 84px; resize: vertical; scrollbar-width: none; }
+textarea::-webkit-scrollbar { display: none; }
+input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+select { -webkit-appearance: none; appearance: none; padding-right: 34px; background-image: linear-gradient(45deg, transparent 50%, var(--teal) 50%), linear-gradient(135deg, var(--teal) 50%, transparent 50%); background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%; background-size: 6px 6px; background-repeat: no-repeat; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > label { font-weight: 800; font-size: 14.5px; }
+.hint { font-size: 13px; color: var(--muted); }
+.grid2 { display: grid; gap: 12px; align-items: start; }
+@media (min-width: 640px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+
+/* Acceso */
+#boot { min-height: 100dvh; display: grid; place-content: center; color: var(--muted); font-weight: 700; }
+#login { min-height: 100dvh; display: grid; place-items: center; padding: 24px 16px; }
+.login-card { width: 100%; max-width: 400px; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 26px 20px; display: grid; gap: 16px; box-shadow: 0 14px 34px -14px rgba(14,129,120,.35); }
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand b { font-family: var(--font-display); font-size: 18px; line-height: 1.05; }
+.err { background: var(--bad-bg); color: var(--bad-ink); border-radius: 10px; padding: 10px 12px; font-weight: 700; font-size: 14.5px; }
+
+/* Barra */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+.bar .wrap { display: flex; align-items: center; gap: 12px; min-height: 60px; flex-wrap: wrap; padding-block: 6px; }
+.bar nav { display: flex; gap: 6px; margin-left: auto; }
+.bar nav a { text-decoration: none; font-weight: 800; font-size: 14.5px; color: var(--muted); padding: 9px 14px; border-radius: 999px; }
+.bar nav a[aria-current="page"] { background: var(--teal); color: #fff; }
+.bar .salir { background: none; border: 0; font: inherit; font-weight: 800; font-size: 14px; color: var(--muted); cursor: pointer; padding: 8px; }
+
+main.wrap { padding-block: 18px 60px; display: grid; gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.card > h3 { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+
+/* Bandeja */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button { font: inherit; font-weight: 800; font-size: 14px; cursor: pointer; min-height: 42px; padding: 0 14px; border-radius: 999px; border: 1.5px solid #9FC7C1; background: var(--surface); color: var(--ink); }
+.filters button[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: #fff; }
+.filters .n { margin-left: 6px; opacity: .8; font-weight: 700; }
+.list { display: grid; gap: 10px; }
+.item { display: grid; gap: 6px; text-align: left; font: inherit; color: inherit; cursor: pointer; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; min-width: 0; }
+.item:hover { border-color: var(--aqua); background: #FAFFFE; }
+.item .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.item .cod { font-family: var(--font-display); font-weight: 700; font-size: 17px; }
+.item .svc { font-weight: 700; overflow-wrap: anywhere; }
+.badge { display: inline-block; font-size: 12.5px; font-weight: 800; border-radius: 999px; padding: 3px 11px; background: var(--teal-soft); color: var(--teal-dark); white-space: nowrap; }
+.badge.nueva { background: var(--teal); color: #fff; }
+.badge.en_revision { background: var(--alert-bg); color: var(--alert-ink); }
+.badge.cotizada { background: #E4EAFB; color: #26397A; }
+.badge.confirmada { background: var(--ok-bg); color: var(--ok-ink); }
+.badge.atendida { background: #E8EEEE; color: var(--muted); }
+.badge.cancelada, .badge.descartada { background: var(--bad-bg); color: var(--bad-ink); }
+.badge.urg { background: var(--peach); color: var(--peach-ink); }
+.empty { border: 2px dashed var(--aqua); border-radius: 18px; padding: 24px 18px; background: var(--surface); display: grid; gap: 6px; text-align: center; }
+
+/* Ficha */
+.back { background: none; border: 0; font: inherit; font-weight: 800; color: var(--teal); cursor: pointer; padding: 6px 0; justify-self: start; }
+.kv { margin: 0; display: grid; gap: 0; }
+.kv div { display: grid; gap: 1px; padding: 9px 0; border-top: 1px solid var(--line); }
+.kv div:first-child { border-top: 0; padding-top: 0; }
+.kv dt { font-size: 12.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.kv dd { margin: 0; font-weight: 700; overflow-wrap: anywhere; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
+.chips li { background: var(--teal-soft); color: var(--teal-dark); border-radius: 999px; padding: 4px 12px; font-size: 14px; font-weight: 800; }
+.cols { display: grid; gap: 16px; align-items: start; }
+@media (min-width: 980px) { .cols { grid-template-columns: 5fr 7fr; } }
+
+/* Cotizador */
+.lines { display: grid; gap: 10px; }
+.line { display: grid; grid-template-columns: 1fr 64px 96px 34px; gap: 8px; align-items: end; padding-bottom: 10px; border-bottom: 1px dashed var(--line); }
+.line .c { grid-column: 1 / -1; }
+.line input { min-height: 42px; padding: 8px 10px; }
+.line .x { min-height: 42px; border: 1.5px solid #E2B8A6; background: #fff; color: #9A3E0C; border-radius: 10px; font-weight: 800; cursor: pointer; }
+.line .imp { grid-column: 1 / -1; text-align: right; font-weight: 800; font-size: 14px; color: var(--muted); }
+.line label.l { font-size: 12px; font-weight: 800; color: var(--muted); display: block; margin-bottom: 2px; }
+.tot { background: var(--teal-soft); border-radius: 14px; padding: 14px; display: grid; gap: 6px; }
+.tot div { display: flex; justify-content: space-between; gap: 12px; font-variant-numeric: tabular-nums; }
+.tot .big { font-family: var(--font-display); font-size: 22px; font-weight: 700; border-top: 1.5px solid var(--aqua); padding-top: 8px; margin-top: 2px; }
+.tot .adel { font-weight: 800; color: var(--teal-dark); }
+.msgbox { font-size: 14px; min-height: 280px; }
+.ok { background: var(--ok-bg); color: var(--ok-ink); border-radius: 10px; padding: 10px 12px; font-weight: 700; font-size: 14.5px; }
+.warnbox { background: var(--alert-bg); color: var(--alert-ink); border: 1px solid var(--alert-line); border-radius: 12px; padding: 10px 12px; font-weight: 700; font-size: 14.5px; }
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: #fff; font-weight: 700; padding: 11px 18px; border-radius: 999px; z-index: 50; max-width: calc(100% - 32px); text-align: center; box-shadow: 0 10px 28px -8px rgba(0,0,0,.4); }
+@media (prefers-reduced-motion: no-preference) { .toast { animation: up .25s ease; } @keyframes up { from { opacity: 0; transform: translate(-50%, 10px); } } }
+</style>
+</head>
+<body>
+
+<div id="boot">Cargando…</div>
+
+<main id="login" hidden>
+  <form class="login-card" id="loginForm" novalidate>
+    <div class="brand">
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path d="M5 37V19C5 10.7 11.7 4 20 4s15 6.7 15 15v18z" fill="#D2F0EB" stroke="#0E8178" stroke-width="2.4" stroke-linejoin="round"/><rect x="17.6" y="14" width="4.8" height="15" rx="1.4" fill="#0E8178"/><rect x="12.5" y="19.1" width="15" height="4.8" rx="1.4" fill="#0E8178"/></svg>
+      <b>Bienestar<br>a tu puerta</b>
+    </div>
+    <div><h1>Panel privado</h1><p class="small">Solo para la enfermera. Entra con tu correo y tu contraseña.</p></div>
+    <div class="field"><label for="lg-email">Correo</label><input type="email" id="lg-email" autocomplete="username" inputmode="email"></div>
+    <div class="field"><label for="lg-pass">Contraseña</label><input type="password" id="lg-pass" autocomplete="current-password"></div>
+    <p class="err" id="lg-err" hidden></p>
+    <button class="btn" type="submit" id="lg-btn">Entrar</button>
+  </form>
+</main>
+
+<div id="app" hidden>
+  <header class="bar">
+    <div class="wrap">
+      <div class="brand">
+        <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><path d="M5 37V19C5 10.7 11.7 4 20 4s15 6.7 15 15v18z" fill="#D2F0EB" stroke="#0E8178" stroke-width="2.4" stroke-linejoin="round"/><rect x="17.6" y="14" width="4.8" height="15" rx="1.4" fill="#0E8178"/><rect x="12.5" y="19.1" width="15" height="4.8" rx="1.4" fill="#0E8178"/></svg>
+        <b>Panel</b>
+      </div>
+      <nav aria-label="Secciones">
+        <a href="#/" id="nav-lista">Solicitudes</a>
+        <a href="#/ajustes" id="nav-ajustes">Ajustes</a>
+      </nav>
+      <button class="salir" type="button" id="salir">Salir</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="v-lista" hidden>
+      <div class="card" style="gap:14px">
+        <div class="row" style="justify-content:space-between"><h2>Solicitudes</h2><button class="btn ghost small" type="button" id="refrescar">Actualizar</button></div>
+        <div class="filters" id="filtros" role="group" aria-label="Filtrar por estado"></div>
+        <div class="list" id="lista"></div>
+      </div>
+    </section>
+
+    <section id="v-ficha" hidden>
+      <button class="back" type="button" id="volver">← Volver a solicitudes</button>
+      <div class="cols">
+        <div style="display:grid;gap:16px" id="ficha-datos"></div>
+        <div style="display:grid;gap:16px" id="ficha-cot"></div>
+      </div>
+    </section>
+
+    <section id="v-ajustes" hidden>
+      <div class="card">
+        <h2>Ajustes de cotización</h2>
+        <p class="small">Estos valores se cargan por defecto en cada cotización nueva. En cada cotización puedes cambiarlos para ese paciente.</p>
+        <div class="grid2">
+          <div class="field"><label for="a-traslado">Traslado por defecto (S/)</label><input type="number" id="a-traslado" inputmode="decimal" min="0" step="0.01"><p class="hint">Referencia: según la distancia.</p></div>
+          <div class="field"><label for="a-vigencia">Vigencia de la cotización (horas)</label><input type="number" id="a-vigencia" inputmode="numeric" min="1" step="1"></div>
+          <div class="field"><label for="a-recargo1">Recargo mismo día o urgente (S/)</label><input type="number" id="a-recargo1" inputmode="decimal" min="0" step="0.01"><p class="hint">Vacío = tú lo defines en cada cotización.</p></div>
+          <div class="field"><label for="a-recargo2">Recargo paciente de alto cuidado (S/)</label><input type="number" id="a-recargo2" inputmode="decimal" min="0" step="0.01"><p class="hint">Vacío = tú lo defines en cada cotización.</p></div>
+          <div class="field"><label for="a-adel">Adelanto (%)</label><input type="number" id="a-adel" inputmode="decimal" min="0" max="100" step="1"></div>
+          <div class="field"><label for="a-base">El adelanto se calcula sobre</label>
+            <select id="a-base"><option value="servicios">Los servicios (después del descuento)</option><option value="total">El total (con traslado y recargos)</option></select></div>
+        </div>
+        <div class="field"><label for="a-medios">Medios de pago</label><input type="text" id="a-medios"></div>
+        <div class="field"><label for="a-datos">Datos de pago (Yape, Plin, cuenta bancaria)</label><textarea id="a-datos" placeholder="Ej.: Yape 9xx xxx xxx a nombre de ..."></textarea><p class="hint">Aparecen en la cotización que envías a la familia.</p></div>
+        <div class="field"><label for="a-cond">Condiciones: qué incluye y qué no</label><textarea id="a-cond"></textarea></div>
+        <div class="field"><label for="a-canc">Cancelación y reprogramación</label><textarea id="a-canc"></textarea></div>
+        <div class="row"><button class="btn" type="button" id="a-guardar">Guardar ajustes</button><span class="small" id="a-msg" role="status"></span></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var SB_URL = 'https://yfhvhuqfeblrxibiwuxs.supabase.co';
+  var SB_KEY = 'sb_publishable_9d81qiSz5EKvxzL-2h7UuA_8LvDdWGU';
+  var sb = window.supabase.createClient(SB_URL, SB_KEY);
+
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function num(v) { var n = parseFloat(String(v == null ? '' : v).replace(',', '.')); return isFinite(n) ? n : 0; }
+  function r2(n) { return Math.round(n * 100) / 100; }
+  function money(n) { n = r2(n); return 'S/ ' + (n % 1 === 0 ? String(n) : n.toFixed(2)); }
+  function fdate(s) { if (!s) return ''; var p = String(s).slice(0, 10).split('-'); return p[2] + '/' + p[1] + '/' + p[0]; }
+  function fdt(iso) { var d = new Date(iso); var p = function (x) { return (x < 10 ? '0' : '') + x; }; return p(d.getDate()) + '/' + p(d.getMonth() + 1) + '/' + d.getFullYear() + ' ' + p(d.getHours()) + ':' + p(d.getMinutes()); }
+  function ago(iso) {
+    var m = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+    if (m < 1) return 'ahora'; if (m < 60) return 'hace ' + m + ' min';
+    var h = Math.round(m / 60); if (h < 24) return 'hace ' + h + (h === 1 ? ' hora' : ' horas');
+    var d = Math.round(h / 24); return 'hace ' + d + (d === 1 ? ' día' : ' días');
+  }
+  var toastT;
+  function toast(msg) { var t = $('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(function () { t.hidden = true; }, 3200); }
+
+  var ESTADOS = { nueva: 'Nueva', en_revision: 'En revisión', cotizada: 'Cotizada', confirmada: 'Confirmada', atendida: 'Atendida', cancelada: 'Cancelada', descartada: 'Descartada' };
+  var GRUPOS = [
+    { id: 'activas', t: 'Por atender', est: ['nueva', 'en_revision', 'cotizada'] },
+    { id: 'confirmadas', t: 'Confirmadas', est: ['confirmada'] },
+    { id: 'cerradas', t: 'Cerradas', est: ['atendida', 'cancelada', 'descartada'] },
+    { id: 'todas', t: 'Todas', est: null }
+  ];
+  var S = { user: null, prof: null, sols: [], filtro: 'activas', sol: null, q: null };
+
+  /* ---------- Acceso ---------- */
+  function showOnly(which) {
+    $('boot').hidden = which !== 'boot'; $('login').hidden = which !== 'login'; $('app').hidden = which !== 'app';
+  }
+  $('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var em = $('lg-email').value.trim(), pw = $('lg-pass').value;
+    var er = $('lg-err'); er.hidden = true;
+    if (!em || !pw) { er.textContent = 'Escribe tu correo y tu contraseña.'; er.hidden = false; return; }
+    var b = $('lg-btn'); b.disabled = true; b.textContent = 'Entrando…';
+    sb.auth.signInWithPassword({ email: em, password: pw }).then(function (r) {
+      b.disabled = false; b.textContent = 'Entrar';
+      if (r.error) { er.textContent = 'Correo o contraseña incorrectos.'; er.hidden = false; return; }
+      $('lg-pass').value = ''; start();
+    }, function () { b.disabled = false; b.textContent = 'Entrar'; er.textContent = 'No pudimos conectarnos. Revisa tu internet e inténtalo otra vez.'; er.hidden = false; });
+  });
+  $('salir').addEventListener('click', function () { sb.auth.signOut().then(function () { S.user = null; S.prof = null; location.hash = ''; showOnly('login'); }); });
+
+  function start() {
+    sb.auth.getSession().then(function (r) {
+      if (!r.data || !r.data.session) { showOnly('login'); return; }
+      S.user = r.data.session.user;
+      return sb.from('profesionales').select('*').limit(1).maybeSingle().then(function (p) {
+        if (p.error || !p.data) { showOnly('login'); var er = $('lg-err'); er.textContent = 'Tu cuenta todavía no está vinculada a un perfil. Avísale a Andres.'; er.hidden = false; sb.auth.signOut(); return; }
+        S.prof = p.data; showOnly('app'); return cargar().then(route);
+      });
+    }).catch(function () { showOnly('login'); });
+  }
+  function cargar() {
+    return sb.from('solicitudes').select('*').order('created_at', { ascending: false }).limit(300).then(function (r) {
+      if (r.error) { toast('No pude cargar las solicitudes.'); return; }
+      S.sols = r.data || [];
+    });
+  }
+
+  /* ---------- Rutas ---------- */
+  function setNav(a) { $('nav-lista').removeAttribute('aria-current'); $('nav-ajustes').removeAttribute('aria-current'); if (a) $(a).setAttribute('aria-current', 'page'); }
+  function route() {
+    if (!S.prof) return;
+    var h = location.hash || '#/';
+    $('v-lista').hidden = true; $('v-ficha').hidden = true; $('v-ajustes').hidden = true;
+    if (h.indexOf('#/sol/') === 0) { setNav('nav-lista'); abrir(h.slice(6)); }
+    else if (h === '#/ajustes') { setNav('nav-ajustes'); $('v-ajustes').hidden = false; fillAjustes(); window.scrollTo(0, 0); }
+    else { setNav('nav-lista'); $('v-lista').hidden = false; pintarLista(); }
+  }
+  window.addEventListener('hashchange', route);
+  $('volver').addEventListener('click', function () { location.hash = '#/'; });
+  $('refrescar').addEventListener('click', function () { cargar().then(function () { pintarLista(); toast('Lista actualizada'); }); });
+  setInterval(function () { if (S.prof && document.visibilityState === 'visible' && !$('v-lista').hidden) cargar().then(pintarLista); }, 60000);
+
+  /* ---------- Bandeja ---------- */
+  function enGrupo(s, g) { return !g.est || g.est.indexOf(s.estado) >= 0; }
+  function pintarLista() {
+    var f = $('filtros'); f.innerHTML = '';
+    GRUPOS.forEach(function (g) {
+      var n = S.sols.filter(function (s) { return enGrupo(s, g); }).length;
+      var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-pressed', g.id === S.filtro ? 'true' : 'false');
+      b.innerHTML = esc(g.t) + '<span class="n">' + n + '</span>';
+      b.addEventListener('click', function () { S.filtro = g.id; pintarLista(); });
+      f.appendChild(b);
+    });
+    var g = GRUPOS.filter(function (x) { return x.id === S.filtro; })[0];
+    var items = S.sols.filter(function (s) { return enGrupo(s, g); });
+    var L = $('lista'); L.innerHTML = '';
+    if (!items.length) {
+      L.innerHTML = '<div class="empty"><h3>' + (S.sols.length ? 'No hay solicitudes en esta vista' : 'Aún no llegan solicitudes') + '</h3><p class="small">' +
+        (S.sols.length ? 'Prueba con otra pestaña de arriba.' : 'Cuando una familia llene el formulario de la página, aparecerá aquí.') + '</p></div>';
+      return;
+    }
+    items.forEach(function (s) {
+      var nombres = (s.servicios || []).map(function (x) { return x.nombre; });
+      if (s.otro_servicio) nombres.push('Otro procedimiento');
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'item';
+      b.innerHTML = '<div class="top"><span class="cod">' + esc(s.codigo) + '</span><span class="row" style="gap:6px">' +
+        (s.urgente ? '<span class="badge urg">Urgente</span>' : '') + '<span class="badge ' + esc(s.estado) + '">' + esc(ESTADOS[s.estado] || s.estado) + '</span></span></div>' +
+        '<div class="svc">' + esc(nombres.join(' · ') || 'Sin servicios') + '</div>' +
+        '<div class="small">Paciente: ' + esc(s.paciente) + ' · Para el ' + esc(fdate(s.fecha_preferida)) + ', ' + esc(s.franja) + '</div>' +
+        '<div class="small">' + esc(ago(s.created_at)) + ' · Estimado ' + esc(money(num(s.estimado))) + '</div>';
+      b.addEventListener('click', function () { location.hash = '#/sol/' + s.id; });
+      L.appendChild(b);
+    });
+  }
+
+  /* ---------- Ficha ---------- */
+  function abrir(id) {
+    var s = S.sols.filter(function (x) { return x.id === id; })[0];
+    if (!s) { location.hash = '#/'; return; }
+    S.sol = s;
+    $('v-ficha').hidden = false; window.scrollTo(0, 0);
+    pintarDatos();
+    sb.from('cotizaciones').select('*').eq('solicitud_id', s.id).order('created_at', { ascending: false }).limit(1).then(function (r) {
+      var c = r.data && r.data[0];
+      S.q = c ? desdeCot(c) : nuevaCot(s);
+      pintarCot();
+    });
+  }
+  function pintarDatos() {
+    var s = S.sol, cl = s.clinica || {};
+    var wa = 'https://wa.me/51' + encodeURIComponent(s.celular) + '?text=' + encodeURIComponent('Hola ' + s.solicitante + ', soy la Lic. Paola de Bienestar a tu puerta. Recibí tu solicitud ' + s.codigo + '.');
+    var etiquetas = [['diagnostico', 'Diagnóstico'], ['medicamento', 'Medicamento y dosis'], ['alergias', 'Alergias'], ['enfermedades', 'Enfermedades de base'], ['peso', 'Peso (kg)'], ['acceso', 'Escaleras o ascensor'], ['cuidador', 'Quién cuida al paciente'], ['mascotas', 'Mascotas'], ['comentarios', 'Comentarios']];
+    var clin = etiquetas.filter(function (e) { return cl[e[0]]; }).map(function (e) { return '<div><dt>' + esc(e[1]) + '</dt><dd>' + esc(cl[e[0]]) + '</dd></div>'; }).join('');
+    var sv = (s.servicios || []).map(function (x) { return '<li>' + esc(x.nombre) + (x.requiere_receta ? ' · con receta' : '') + '</li>'; }).join('') + (s.otro_servicio ? '<li>Otro procedimiento (cotizar aparte)</li>' : '');
+    var opts = Object.keys(ESTADOS).map(function (k) { return '<option value="' + k + '"' + (k === s.estado ? ' selected' : '') + '>' + esc(ESTADOS[k]) + '</option>'; }).join('');
+    $('ficha-datos').innerHTML =
+      '<div class="card"><div class="row" style="justify-content:space-between"><h2>' + esc(s.codigo) + '</h2><span class="small">' + esc(fdt(s.created_at)) + '</span></div>' +
+      '<div class="field"><label for="f-estado">Estado de la solicitud</label><select id="f-estado">' + opts + '</select></div>' +
+      '<div class="row">' + (s.urgente ? '<span class="badge urg">Pide atención urgente o para hoy</span>' : '') + (s.codigo_promo ? '<span class="badge">Código: ' + esc(s.codigo_promo) + '</span>' : '') + '</div>' +
+      '<a class="btn" target="_blank" rel="noopener" href="' + wa + '">Escribirle por WhatsApp</a></div>' +
+      '<div class="card"><h3>Quién solicita</h3><dl class="kv"><div><dt>Nombre</dt><dd>' + esc(s.solicitante) + '</dd></div><div><dt>Celular</dt><dd>' + esc(s.celular) + '</dd></div></dl></div>' +
+      '<div class="card"><h3>Paciente y visita</h3><dl class="kv"><div><dt>Paciente</dt><dd>' + esc(s.paciente) + ', ' + esc(s.edad) + ' años</dd></div><div><dt>Dirección</dt><dd>' + esc(s.direccion) + ' (' + esc(s.distrito) + ')</dd></div><div><dt>Fecha y horario que pide</dt><dd>' + esc(fdate(s.fecha_preferida)) + ', ' + esc(s.franja) + '</dd></div>' +
+      '<div><dt>Receta médica</dt><dd>' + (s.receta_confirmada ? 'Sí tiene (pedir foto)' : 'No aplica') + '</dd></div></dl></div>' +
+      '<div class="card"><h3>Servicios que pidió</h3><ul class="chips">' + (sv || '<li>Ninguno</li>') + '</ul><p class="small">Estimado de la página: ' + esc(money(num(s.estimado))) + ' (sin traslado ni recargos)</p></div>' +
+      '<div class="card"><h3>Información clínica</h3>' + (clin ? '<dl class="kv">' + clin + '</dl>' : '<p class="small">No dejó datos clínicos.</p>') + '</div>' +
+      '<div class="card"><h3>Notas internas</h3><textarea id="f-notas" aria-label="Notas internas" placeholder="Solo las ves tú">' + esc(s.notas_internas || '') + '</textarea><div class="row"><button class="btn ghost small" type="button" id="f-notas-g">Guardar nota</button></div></div>';
+    $('f-estado').addEventListener('change', function () { cambiarEstado(this.value); });
+    $('f-notas-g').addEventListener('click', function () {
+      sb.from('solicitudes').update({ notas_internas: $('f-notas').value }).eq('id', s.id).then(function (r) { if (r.error) toast('No se pudo guardar la nota.'); else { s.notas_internas = $('f-notas').value; toast('Nota guardada'); } });
+    });
+  }
+  function cambiarEstado(v, silencioso) {
+    var s = S.sol;
+    return sb.from('solicitudes').update({ estado: v }).eq('id', s.id).then(function (r) {
+      if (r.error) { toast('No se pudo cambiar el estado.'); if ($('f-estado')) $('f-estado').value = s.estado; return false; }
+      s.estado = v; if ($('f-estado')) $('f-estado').value = v; if (!silencioso) toast('Estado: ' + ESTADOS[v]); return true;
+    });
+  }
+
+  /* ---------- Cotizador ---------- */
+  function cfg() { return (S.prof && S.prof.config) || {}; }
+  function nuevaCot(s) {
+    var c = cfg(), L = [];
+    (s.servicios || []).forEach(function (x) { L.push({ tipo: 'servicio', concepto: x.nombre, cant: 1, precio: num(x.precio) }); });
+    if (s.otro_servicio) L.push({ tipo: 'servicio', concepto: 'Otro procedimiento (describe)', cant: 1, precio: 0 });
+    L.push({ tipo: 'traslado', concepto: 'Traslado (según distancia)', cant: 1, precio: num(c.traslado_defecto) });
+    if (s.urgente) L.push({ tipo: 'recargo', concepto: 'Recargo por atención el mismo día o urgente', cant: 1, precio: num(c.recargo_mismo_dia) });
+    return {
+      id: null, numero: null, estado: 'borrador', lineas: L, desc_tipo: 'ninguno', desc_valor: 0, desc_motivo: '',
+      adelanto_pct: c.adelanto_pct != null ? num(c.adelanto_pct) : 30, adelanto_base: c.adelanto_base || 'servicios',
+      vigencia_horas: c.vigencia_horas != null ? num(c.vigencia_horas) : 24,
+      fecha_atencion: s.fecha_preferida || '', hora_atencion: '',
+      medios_pago: c.medios_pago || '', datos_pago: c.datos_pago || '',
+      condiciones: [c.incluye ? 'Incluye: ' + c.incluye : '', c.no_incluye ? 'No incluye: ' + c.no_incluye : ''].filter(Boolean).join('\n'),
+      cancelacion: c.cancelacion || '', notas: '', emitida_at: null, vence_at: null
+    };
+  }
+  function desdeCot(c) {
+    return {
+      id: c.id, numero: c.numero, estado: c.estado, lineas: c.lineas || [], desc_tipo: c.descuento_tipo || 'ninguno', desc_valor: num(c.descuento_valor), desc_motivo: c.descuento_motivo || '',
+      adelanto_pct: num(c.adelanto_pct), adelanto_base: c.adelanto_base, vigencia_horas: c.vigencia_horas,
+      fecha_atencion: c.fecha_atencion || '', hora_atencion: c.hora_atencion || '', medios_pago: c.medios_pago || '', datos_pago: c.datos_pago || '',
+      condiciones: c.condiciones || '', cancelacion: c.cancelacion || '', notas: c.notas || '', emitida_at: c.emitida_at, vence_at: c.vence_at
+    };
+  }
+  function calc(q) {
+    var serv = 0, otros = 0;
+    q.lineas.forEach(function (l) { var imp = num(l.cant) * num(l.precio); if (l.tipo === 'servicio') serv += imp; else otros += imp; });
+    var sub = serv + otros, d = 0;
+    if (q.desc_tipo === 'porcentaje') d = sub * Math.min(100, num(q.desc_valor)) / 100;
+    else if (q.desc_tipo === 'monto') d = Math.min(sub, num(q.desc_valor));
+    d = r2(d);
+    var total = r2(sub - d);
+    var base = q.adelanto_base === 'total' ? total : Math.max(0, r2(serv - d));
+    var adel = r2(base * Math.min(100, num(q.adelanto_pct)) / 100);
+    return { serv: r2(serv), sub: r2(sub), desc: d, total: total, adel: adel, saldo: r2(total - adel) };
+  }
+  function pintarCot() {
+    var q = S.q, s = S.sol;
+    var vence = q.vence_at ? new Date(q.vence_at) : null, vencida = vence && vence < new Date() && q.estado === 'enviada';
+    $('ficha-cot').innerHTML =
+      '<div class="card"><h3><span>Cotización' + (q.numero ? ' ' + esc(q.numero) : '') + '</span><span class="badge">' + esc({ borrador: 'Borrador', enviada: 'Enviada', aceptada: 'Aceptada', rechazada: 'Rechazada', vencida: 'Vencida' }[q.estado] || q.estado) + '</span></h3>' +
+      (vencida ? '<p class="warnbox">Esta cotización venció el ' + esc(fdt(q.vence_at)) + '. Ajusta lo que haga falta y vuelve a marcarla como enviada.</p>' : '') +
+      (q.estado === 'enviada' && !vencida && vence ? '<p class="small">Vigente hasta el ' + esc(fdt(q.vence_at)) + '</p>' : '') +
+      '<p class="small">Empieza con lo que pidió la familia y con tus ajustes. Cambia lo que necesites: cada cotización es solo para este paciente.</p>' +
+      '<div class="lines" id="q-lineas"></div>' +
+      '<div class="row"><button class="btn ghost small" type="button" id="q-add">+ Agregar concepto</button></div></div>' +
+
+      '<div class="card"><h3>Descuento o promoción</h3>' +
+      (s.codigo_promo ? '<p class="small">La familia escribió el código: <b>' + esc(s.codigo_promo) + '</b></p>' : '') +
+      '<div class="grid2"><div class="field"><label for="q-dt">Tipo</label><select id="q-dt" data-q="desc_tipo"><option value="ninguno">Sin descuento</option><option value="porcentaje">Porcentaje (%)</option><option value="monto">Monto fijo (S/)</option></select></div>' +
+      '<div class="field"><label for="q-dv">Valor</label><input type="number" id="q-dv" data-q="desc_valor" inputmode="decimal" min="0" step="0.01"></div></div>' +
+      '<div class="field"><label for="q-dm">Motivo (se muestra en la cotización)</label><input type="text" id="q-dm" data-q="desc_motivo" placeholder="Ej.: promoción de lanzamiento, paciente frecuente"></div></div>' +
+
+      '<div class="card"><h3>Adelanto, fecha y pago</h3>' +
+      '<div class="grid2"><div class="field"><label for="q-ap">Adelanto (%)</label><input type="number" id="q-ap" data-q="adelanto_pct" inputmode="decimal" min="0" max="100" step="1"></div>' +
+      '<div class="field"><label for="q-ab">Se calcula sobre</label><select id="q-ab" data-q="adelanto_base"><option value="servicios">Los servicios (después del descuento)</option><option value="total">El total (con traslado y recargos)</option></select></div>' +
+      '<div class="field"><label for="q-vh">Vigencia (horas)</label><input type="number" id="q-vh" data-q="vigencia_horas" inputmode="numeric" min="1" step="1"></div>' +
+      '<div class="field"><label for="q-fa">Fecha de atención</label><input type="date" id="q-fa" data-q="fecha_atencion"></div>' +
+      '<div class="field"><label for="q-ha">Hora aproximada</label><input type="text" id="q-ha" data-q="hora_atencion" placeholder="Ej.: 10:30 a. m."></div>' +
+      '<div class="field"><label for="q-mp">Medios de pago</label><input type="text" id="q-mp" data-q="medios_pago"></div></div>' +
+      '<div class="field"><label for="q-dp">Datos de pago</label><textarea id="q-dp" data-q="datos_pago" placeholder="Número de Yape o Plin, cuenta bancaria…"></textarea></div>' +
+      '<div class="field"><label for="q-co">Condiciones (qué incluye y qué no)</label><textarea id="q-co" data-q="condiciones"></textarea></div>' +
+      '<div class="field"><label for="q-ca">Cancelación y reprogramación</label><textarea id="q-ca" data-q="cancelacion"></textarea></div>' +
+      '<div class="field"><label for="q-no">Mensaje adicional para la familia (opcional)</label><textarea id="q-no" data-q="notas"></textarea></div></div>' +
+
+      '<div class="card"><h3>Resumen</h3><div class="tot" id="q-tot" aria-live="polite"></div>' +
+      '<div class="row"><button class="btn" type="button" id="q-save">Guardar cotización</button>' +
+      '<button class="btn ghost" type="button" id="q-msg">Ver mensaje para WhatsApp</button>' +
+      '<button class="btn ghost" type="button" id="q-pdf">Descargar PDF</button></div>' +
+      '<div id="q-out" hidden style="display:grid;gap:10px"></div></div>';
+    ['desc_tipo', 'adelanto_base'].forEach(function (k) { document.querySelector('[data-q="' + k + '"]').value = q[k]; });
+    document.querySelectorAll('[data-q]').forEach(function (el) {
+      var k = el.getAttribute('data-q'); if (el.tagName !== 'SELECT' || k === 'desc_tipo' || k === 'adelanto_base') { /* ya asignado */ }
+      if (el.tagName !== 'SELECT') el.value = q[k] == null ? '' : q[k];
+      el.addEventListener('input', function () { q[k] = (el.type === 'number') ? el.value : el.value; recalc(); });
+      el.addEventListener('change', function () { q[k] = el.value; recalc(); });
+    });
+    pintarLineas(); recalc();
+    $('q-add').addEventListener('click', function () { q.lineas.push({ tipo: 'otro', concepto: '', cant: 1, precio: 0 }); pintarLineas(); recalc(); });
+    $('q-save').addEventListener('click', function () { guardar(); });
+    $('q-msg').addEventListener('click', function () { verMensaje(); });
+    $('q-pdf').addEventListener('click', function () { descargarPDF(); });
+  }
+  function pintarLineas() {
+    var q = S.q, box = $('q-lineas'); box.innerHTML = '';
+    q.lineas.forEach(function (l, i) {
+      var d = document.createElement('div'); d.className = 'line';
+      var tipoTxt = { servicio: 'Servicio', traslado: 'Traslado', recargo: 'Recargo', otro: 'Otro concepto' }[l.tipo] || 'Concepto';
+      d.innerHTML = '<div class="c field"><label for="l' + i + 'c">' + esc(tipoTxt) + '</label><input type="text" id="l' + i + 'c" data-i="' + i + '" data-f="concepto"></div>' +
+        '<div><label class="l" for="l' + i + 'n">Cant.</label><input type="number" id="l' + i + 'n" data-i="' + i + '" data-f="cant" inputmode="decimal" min="0" step="1"></div>' +
+        '<div><label class="l" for="l' + i + 'p">Precio (S/)</label><input type="number" id="l' + i + 'p" data-i="' + i + '" data-f="precio" inputmode="decimal" min="0" step="0.01"></div>' +
+        '<button type="button" class="x" data-del="' + i + '" aria-label="Quitar ' + esc(l.concepto || 'concepto') + '">×</button>' +
+        '<div class="imp" id="l' + i + 'i"></div>';
+      box.appendChild(d);
+      d.querySelector('[data-f="concepto"]').value = l.concepto;
+      d.querySelector('[data-f="cant"]').value = l.cant;
+      d.querySelector('[data-f="precio"]').value = l.precio;
+    });
+    box.querySelectorAll('input[data-i]').forEach(function (el) {
+      el.addEventListener('input', function () { q.lineas[+el.getAttribute('data-i')][el.getAttribute('data-f')] = el.value; recalc(); });
+    });
+    box.querySelectorAll('[data-del]').forEach(function (b) { b.addEventListener('click', function () { q.lineas.splice(+b.getAttribute('data-del'), 1); pintarLineas(); recalc(); }); });
+  }
+  function recalc() {
+    var q = S.q, t = calc(q);
+    q.lineas.forEach(function (l, i) { var e = $('l' + i + 'i'); if (e) e.textContent = 'Importe: ' + money(num(l.cant) * num(l.precio)); });
+    var ceros = q.lineas.filter(function (l) { return num(l.cant) * num(l.precio) === 0; }).length;
+    $('q-tot').innerHTML = (ceros ? '<p class="warnbox">Hay ' + ceros + (ceros === 1 ? ' concepto' : ' conceptos') + ' en S/ 0. Si es un recargo, no se muestra a la familia; si es un servicio, ponle precio.</p>' : '') +
+      '<div><span>Subtotal</span><span>' + esc(money(t.sub)) + '</span></div>' +
+      (t.desc > 0 ? '<div><span>Descuento' + (q.desc_motivo ? ' (' + esc(q.desc_motivo) + ')' : '') + '</span><span>− ' + esc(money(t.desc)) + '</span></div>' : '') +
+      '<div class="big"><span>Total</span><span>' + esc(money(t.total)) + '</span></div>' +
+      '<div class="adel"><span>Adelanto para confirmar (' + esc(String(num(q.adelanto_pct))) + '%)</span><span>' + esc(money(t.adel)) + '</span></div>' +
+      '<div><span>Saldo el día de la atención</span><span>' + esc(money(t.saldo)) + '</span></div>';
+  }
+
+  function payload(extra) {
+    var q = S.q, t = calc(q);
+    var p = {
+      lineas: q.lineas.map(function (l) { return { tipo: l.tipo, concepto: String(l.concepto || '').trim(), cant: num(l.cant), precio: num(l.precio) }; }),
+      subtotal: t.sub, descuento_tipo: q.desc_tipo === 'ninguno' ? null : q.desc_tipo, descuento_valor: q.desc_tipo === 'ninguno' ? 0 : num(q.desc_valor),
+      descuento_motivo: q.desc_motivo || null, descuento_monto: t.desc, total: t.total,
+      adelanto_pct: Math.min(100, Math.max(0, num(q.adelanto_pct))), adelanto_base: q.adelanto_base, adelanto_monto: t.adel,
+      vigencia_horas: Math.max(1, Math.round(num(q.vigencia_horas) || 24)),
+      fecha_atencion: q.fecha_atencion || null, hora_atencion: q.hora_atencion || null,
+      medios_pago: q.medios_pago || null, datos_pago: q.datos_pago || null, condiciones: q.condiciones || null, cancelacion: q.cancelacion || null, notas: q.notas || null
+    };
+    for (var k in (extra || {})) p[k] = extra[k];
+    return p;
+  }
+  function guardar(extra, silencioso) {
+    var q = S.q, s = S.sol;
+    if (!q.lineas.length) { toast('Agrega al menos un concepto.'); return Promise.resolve(false); }
+    var p = payload(extra), op;
+    if (q.id) op = sb.from('cotizaciones').update(p).eq('id', q.id).select().single();
+    else { p.profesional_id = S.prof.id; p.solicitud_id = s.id; op = sb.from('cotizaciones').insert(p).select().single(); }
+    return op.then(function (r) {
+      if (r.error) { toast('No se pudo guardar la cotización.'); return false; }
+      var c = r.data; q.id = c.id; q.numero = c.numero; q.estado = c.estado; q.emitida_at = c.emitida_at; q.vence_at = c.vence_at;
+      var nuevo = s.estado === 'nueva' ? cambiarEstado('en_revision', true) : Promise.resolve();
+      return nuevo.then(function () { if (!silencioso) toast('Cotización ' + c.numero + ' guardada'); $('ficha-cot').querySelector('h3 span').textContent = 'Cotización ' + c.numero; return true; });
+    });
+  }
+
+  function textoWhatsApp() {
+    var q = S.q, s = S.sol, t = calc(q), c = cfg(), L = [];
+    L.push('Hola ' + s.solicitante + ', soy la Lic. Paola, de ' + (c.marca || 'Bienestar a tu puerta') + '.');
+    L.push('Esta es tu cotización' + (q.numero ? ' ' + q.numero : '') + ' para ' + s.paciente + ':', '');
+    L.push('SERVICIOS Y CONCEPTOS');
+    q.lineas.forEach(function (l) {
+      var imp = num(l.cant) * num(l.precio), cant = num(l.cant);
+      if (imp === 0 && l.tipo !== 'servicio') return;
+      L.push('- ' + (l.concepto || 'Concepto') + (cant !== 1 ? ' x' + cant : '') + ': ' + money(imp));
+    });
+    if (t.desc > 0) { L.push('Subtotal: ' + money(t.sub)); L.push('Descuento' + (q.desc_motivo ? ' (' + q.desc_motivo + ')' : '') + ': -' + money(t.desc)); }
+    L.push('TOTAL: ' + money(t.total), '');
+    if (q.fecha_atencion) L.push('FECHA Y HORA: ' + fdate(q.fecha_atencion) + (q.hora_atencion ? ', ' + q.hora_atencion : ''));
+    if (q.condiciones) L.push(q.condiciones.split('\n').map(function (x) { return x.trim(); }).filter(Boolean).join('\n'));
+    L.push('', 'ADELANTO PARA CONFIRMAR (' + num(q.adelanto_pct) + '%): ' + money(t.adel));
+    if (q.medios_pago) L.push('MEDIOS DE PAGO: ' + q.medios_pago);
+    if (q.datos_pago) L.push('DATOS DE PAGO: ' + q.datos_pago.split('\n').map(function (x) { return x.trim(); }).filter(Boolean).join(' · '));
+    L.push('VIGENCIA: ' + num(q.vigencia_horas) + ' horas' + (q.vence_at ? ' (hasta el ' + fdt(q.vence_at) + ')' : ' desde el envío'));
+    if (q.cancelacion) L.push('CANCELACIÓN: ' + q.cancelacion);
+    if (q.notas) L.push('', q.notas);
+    L.push('', 'Cuando pagues el adelanto, tu atención queda confirmada.');
+    return L.join('\n');
+  }
+  function verMensaje() {
+    var s = S.sol, q = S.q, out = $('q-out'); out.hidden = false;
+    var txt = textoWhatsApp();
+    out.innerHTML = '<div class="field"><label for="q-txt">Mensaje para ' + esc(s.solicitante) + '</label><textarea class="msgbox" id="q-txt" readonly></textarea></div>' +
+      '<div class="row"><button class="btn" type="button" id="q-wa">Abrir WhatsApp con este mensaje</button><button class="btn ghost" type="button" id="q-copy">Copiar</button></div>' +
+      '<p class="hint">Al abrir WhatsApp, el mensaje queda escrito. Tú tocas enviar. Después marca la cotización como enviada.</p>' +
+      '<div class="row"><button class="btn ghost small" type="button" id="q-env">Marcar como enviada</button><button class="btn ghost small" type="button" id="q-acep">Marcar adelanto recibido (confirmar atención)</button><button class="btn danger small" type="button" id="q-rech">Rechazada</button></div>';
+    $('q-txt').value = txt;
+    $('q-wa').addEventListener('click', function () {
+      guardar(null, true).then(function (ok) {
+        if (!ok) return;
+        $('q-txt').value = textoWhatsApp();
+        window.open('https://wa.me/51' + encodeURIComponent(s.celular) + '?text=' + encodeURIComponent($('q-txt').value), '_blank', 'noopener');
+      });
+    });
+    $('q-copy').addEventListener('click', function () {
+      var t = $('q-txt'); t.focus(); t.select();
+      try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t.value).then(function () { toast('Mensaje copiado'); }, function () { document.execCommand('copy'); toast('Mensaje copiado'); }); else { document.execCommand('copy'); toast('Mensaje copiado'); } } catch (e) { toast('Mantén presionado el texto y elige Copiar.'); }
+    });
+    $('q-env').addEventListener('click', function () {
+      var now = new Date(), ven = new Date(now.getTime() + Math.max(1, num(q.vigencia_horas) || 24) * 3600000);
+      guardar({ estado: 'enviada', emitida_at: now.toISOString(), vence_at: ven.toISOString() }, true).then(function (ok) {
+        if (!ok) return; return cambiarEstado('cotizada', true).then(function () { toast('Marcada como enviada. Vence ' + fdt(ven.toISOString())); pintarCot(); verMensaje(); });
+      });
+    });
+    $('q-acep').addEventListener('click', function () {
+      guardar({ estado: 'aceptada' }, true).then(function (ok) { if (!ok) return; return cambiarEstado('confirmada', true).then(function () { toast('Atención confirmada'); pintarCot(); }); });
+    });
+    $('q-rech').addEventListener('click', function () {
+      guardar({ estado: 'rechazada' }, true).then(function (ok) { if (ok) { toast('Marcada como rechazada'); pintarCot(); } });
+    });
+    out.scrollIntoView({ block: 'nearest' });
+  }
+
+  /* ---------- PDF ---------- */
+  function descargarPDF() {
+    if (!window.jspdf) { toast('No cargó el generador de PDF. Revisa tu internet.'); return; }
+    guardar(null, true).then(function (ok) {
+      if (!ok) return;
+      var q = S.q, s = S.sol, t = calc(q), c = cfg(), P = S.prof;
+      var doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+      var W = 210, M = 16, y = 0, TEAL = [14, 129, 120], SOFT = [210, 240, 235], INK = [23, 57, 61], MUT = [71, 106, 110];
+      function logo(x, yy, sz) {
+        var k = sz / 40;
+        doc.setFillColor(SOFT[0], SOFT[1], SOFT[2]); doc.setDrawColor(TEAL[0], TEAL[1], TEAL[2]); doc.setLineWidth(0.5);
+        doc.lines([[0, -18], [0, -8.3, 6.7, -15, 15, -15], [8.3, 0, 15, 6.7, 15, 15], [0, 18]].map(function (a) { return a.map(function (v) { return v * k; }); }), x + 5 * k, yy + 37 * k, [1, 1], 'FD', true);
+        doc.setFillColor(TEAL[0], TEAL[1], TEAL[2]);
+        doc.roundedRect(x + 17.6 * k, yy + 14 * k, 4.8 * k, 15 * k, 1 * k, 1 * k, 'F');
+        doc.roundedRect(x + 12.5 * k, yy + 19.1 * k, 15 * k, 4.8 * k, 1 * k, 1 * k, 'F');
+      }
+      function nuevaPag() { doc.addPage(); y = 20; }
+      function chk(h) { if (y + h > 280) nuevaPag(); }
+      function txt(str, x, yy, o) { doc.text(String(str), x, yy, o || {}); }
+      function bloque(titulo, texto) {
+        if (!texto) return;
+        var lines = doc.splitTextToSize(String(texto), W - 2 * M);
+        chk(8 + lines.length * 4.6);
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.setTextColor(TEAL[0], TEAL[1], TEAL[2]); txt(titulo.toUpperCase(), M, y); y += 5;
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(INK[0], INK[1], INK[2]);
+        lines.forEach(function (ln) { txt(ln, M, y); y += 4.6; }); y += 3;
+      }
+      doc.setFillColor(SOFT[0], SOFT[1], SOFT[2]); doc.rect(0, 0, W, 38, 'F');
+      logo(M, 8, 22);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(17); doc.setTextColor(INK[0], INK[1], INK[2]); txt(c.marca || 'Bienestar a tu puerta', M + 27, 17);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(MUT[0], MUT[1], MUT[2]); txt('Más que atención, un cuidado humano', M + 27, 23);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(TEAL[0], TEAL[1], TEAL[2]); txt('COTIZACIÓN ' + (q.numero || ''), W - M, 15, { align: 'right' });
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(MUT[0], MUT[1], MUT[2]);
+      txt('Fecha: ' + fdate(new Date().toISOString()), W - M, 21, { align: 'right' });
+      if (q.vence_at) txt('Vigente hasta: ' + fdt(q.vence_at), W - M, 26, { align: 'right' }); else txt('Vigencia: ' + num(q.vigencia_horas) + ' horas desde el envío', W - M, 26, { align: 'right' });
+      y = 48;
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.setTextColor(INK[0], INK[1], INK[2]);
+      txt(P.nombre, M, y); y += 5;
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(MUT[0], MUT[1], MUT[2]);
+      txt([P.titulo, P.colegiatura].filter(Boolean).join(' · '), M, y); y += 4.6;
+      txt('WhatsApp: ' + String(P.whatsapp).replace(/^51/, ''), M, y); y += 9;
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.setTextColor(TEAL[0], TEAL[1], TEAL[2]); txt('PARA', M, y); y += 5;
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(INK[0], INK[1], INK[2]);
+      txt(s.solicitante + ' · Cel. ' + s.celular, M, y); y += 4.8;
+      txt('Paciente: ' + s.paciente + ', ' + s.edad + ' años', M, y); y += 4.8;
+      doc.splitTextToSize('Dirección: ' + s.direccion + ' (' + s.distrito + ')', W - 2 * M).forEach(function (ln) { txt(ln, M, y); y += 4.8; });
+      if (q.fecha_atencion) { txt('Fecha de atención: ' + fdate(q.fecha_atencion) + (q.hora_atencion ? ', ' + q.hora_atencion : ''), M, y); y += 4.8; }
+      y += 5;
+      doc.setFillColor(TEAL[0], TEAL[1], TEAL[2]); doc.rect(M, y, W - 2 * M, 8, 'F');
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(9.5); doc.setTextColor(255, 255, 255);
+      txt('Concepto', M + 3, y + 5.4); txt('Cant.', 126, y + 5.4, { align: 'right' }); txt('Precio', 156, y + 5.4, { align: 'right' }); txt('Importe', W - M - 3, y + 5.4, { align: 'right' });
+      y += 8;
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(INK[0], INK[1], INK[2]);
+      q.lineas.filter(function (l) { return !(num(l.cant) * num(l.precio) === 0 && l.tipo !== 'servicio'); }).forEach(function (l, i) {
+        var nm = doc.splitTextToSize(l.concepto || 'Concepto', 92), h = Math.max(7, nm.length * 4.6 + 2.4);
+        chk(h);
+        if (i % 2 === 0) { doc.setFillColor(246, 252, 251); doc.rect(M, y, W - 2 * M, h, 'F'); }
+        nm.forEach(function (ln, k) { txt(ln, M + 3, y + 4.8 + k * 4.6); });
+        txt(String(num(l.cant)), 126, y + 4.8, { align: 'right' }); txt(money(num(l.precio)), 156, y + 4.8, { align: 'right' }); txt(money(num(l.cant) * num(l.precio)), W - M - 3, y + 4.8, { align: 'right' });
+        y += h;
+      });
+      y += 4; chk(40);
+      function fila(a, b, bold, color) { doc.setFont('helvetica', bold ? 'bold' : 'normal'); doc.setFontSize(bold ? 12 : 10); if (color) doc.setTextColor(color[0], color[1], color[2]); else doc.setTextColor(INK[0], INK[1], INK[2]); txt(a, 126, y, { align: 'right' }); txt(b, W - M - 3, y, { align: 'right' }); y += bold ? 7 : 5.2; }
+      if (t.desc > 0) { fila('Subtotal', money(t.sub)); fila('Descuento' + (q.desc_motivo ? ' (' + q.desc_motivo + ')' : ''), '- ' + money(t.desc)); }
+      fila('TOTAL', money(t.total), true, TEAL);
+      fila('Adelanto para confirmar (' + num(q.adelanto_pct) + '%)', money(t.adel), true, INK);
+      fila('Saldo el día de la atención', money(t.saldo));
+      y += 6;
+      bloque('Condiciones', q.condiciones);
+      bloque('Medios de pago', q.medios_pago);
+      bloque('Datos de pago', q.datos_pago);
+      bloque('Cancelación y reprogramación', q.cancelacion);
+      bloque('Mensaje', q.notas);
+      chk(14);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.setTextColor(TEAL[0], TEAL[1], TEAL[2]);
+      txt('Al pagar el adelanto, tu atención queda confirmada.', M, y);
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(MUT[0], MUT[1], MUT[2]);
+      txt('Esta cotización es referencial hasta que se confirme el adelanto. No reemplaza la consulta médica.', M, 290);
+      doc.save((q.numero || 'cotizacion') + '-' + String(s.paciente).replace(/[^A-Za-z0-9]+/g, '-').slice(0, 30) + '.pdf');
+      toast('PDF generado');
+    });
+  }
+
+  /* ---------- Ajustes ---------- */
+  function fillAjustes() {
+    var c = cfg();
+    $('a-traslado').value = c.traslado_defecto != null ? c.traslado_defecto : '';
+    $('a-vigencia').value = c.vigencia_horas != null ? c.vigencia_horas : 24;
+    $('a-recargo1').value = c.recargo_mismo_dia != null ? c.recargo_mismo_dia : '';
+    $('a-recargo2').value = c.recargo_alto_cuidado != null ? c.recargo_alto_cuidado : '';
+    $('a-adel').value = c.adelanto_pct != null ? c.adelanto_pct : 30;
+    $('a-base').value = c.adelanto_base || 'servicios';
+    $('a-medios').value = c.medios_pago || '';
+    $('a-datos').value = c.datos_pago || '';
+    $('a-cond').value = [c.incluye ? 'Incluye: ' + c.incluye : '', c.no_incluye ? 'No incluye: ' + c.no_incluye : ''].filter(Boolean).join('\n');
+    $('a-canc').value = c.cancelacion || '';
+    $('a-msg').textContent = '';
+  }
+  function opc(id) { var v = $(id).value.trim(); return v === '' ? null : num(v); }
+  $('a-guardar').addEventListener('click', function () {
+    var cond = $('a-cond').value, inc = '', noinc = '', extra = [];
+    cond.split('\n').forEach(function (ln) {
+      var m = ln.match(/^\s*incluye\s*:\s*(.*)$/i), n = ln.match(/^\s*no incluye\s*:\s*(.*)$/i);
+      if (n) noinc = n[1]; else if (m) inc = m[1]; else if (ln.trim()) extra.push(ln.trim());
+    });
+    if (extra.length) inc = (inc ? inc + ' ' : '') + extra.join(' ');
+    var nuevo = Object.assign({}, cfg(), {
+      traslado_defecto: opc('a-traslado'), vigencia_horas: Math.max(1, Math.round(num($('a-vigencia').value) || 24)),
+      recargo_mismo_dia: opc('a-recargo1'), recargo_alto_cuidado: opc('a-recargo2'),
+      adelanto_pct: Math.min(100, Math.max(0, num($('a-adel').value))), adelanto_base: $('a-base').value,
+      medios_pago: $('a-medios').value.trim(), datos_pago: $('a-datos').value.trim(), incluye: inc, no_incluye: noinc, cancelacion: $('a-canc').value.trim()
+    });
+    var b = $('a-guardar'); b.disabled = true;
+    sb.from('profesionales').update({ config: nuevo }).eq('id', S.prof.id).select().single().then(function (r) {
+      b.disabled = false;
+      if (r.error) { $('a-msg').textContent = 'No se pudo guardar.'; toast('No se pudo guardar los ajustes.'); return; }
+      S.prof = r.data; $('a-msg').textContent = 'Guardado'; toast('Ajustes guardados');
+    });
+  });
+
+  /* ---------- Inicio ---------- */
+  sb.auth.onAuthStateChange(function (ev) { if (ev === 'SIGNED_OUT') { S.prof = null; showOnly('login'); } });
+  start();
+})();
+</script>
+</body>
+</html>

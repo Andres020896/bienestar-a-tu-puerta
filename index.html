@@ -1,0 +1,1169 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bienestar a tu puerta</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Bienestar a tu puerta: enfermería a domicilio en Villa El Salvador. Cotiza tu atención por WhatsApp.">
+<meta name="theme-color" content="#EEF9F7">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M5 37V19C5 10.7 11.7 4 20 4s15 6.7 15 15v18z' fill='%23D2F0EB' stroke='%230E8178' stroke-width='2.4'/%3E%3Crect x='17.6' y='14' width='4.8' height='15' rx='1.4' fill='%230E8178'/%3E%3Crect x='12.5' y='19.1' width='15' height='4.8' rx='1.4' fill='%230E8178'/%3E%3C/svg%3E">
+<style>html{box-sizing:border-box}body{margin:0}[hidden]{display:none!important}</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout v2: cinco pestañas fijas bajo la cabecera (Inicio, Servicios, Sobre mí, Info, Cotizar); un tema claro turquesa/pastel. Antes: una columna pensada para celular; portada con "puerta" en arco, tarifario con botón Cotizar en cada servicio, solicitud al final. Un solo tema claro turquesa/pastel, sin fondos oscuros. */
+:root {
+  color-scheme: light;
+  --bg: #EEF9F7;
+  --surface: #FFFFFF;
+  --ink: #17393D;
+  --muted: #476A6E;
+  --line: #CDE6E2;
+  --teal: #0E8178;
+  --teal-soft: #D2F0EB;
+  --aqua: #A5E3D9;
+  --peach: #FFE4D6;
+  --peach-ink: #7A3E22;
+  --alert-bg: #FFF1D9;
+  --alert-ink: #6B4300;
+  --alert-line: #F2D49B;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: auto; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+body.has-pick { padding-bottom: 84px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.12; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(32px, 8.4vw, 50px); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: clamp(25px, 5.6vw, 34px); font-weight: 700; }
+h3 { font-size: 19px; font-weight: 700; }
+p { margin: 0; }
+a { color: var(--teal); }
+.wrap { max-width: 1040px; margin-inline: auto; padding-inline: 16px; }
+.eyebrow { font-size: 12.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); }
+.lead { font-size: 18px; color: var(--muted); max-width: 56ch; }
+.small { font-size: 14px; color: var(--muted); }
+:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; border-radius: 6px; }
+
+.proto { background: var(--peach); color: var(--peach-ink); font-size: 13px; font-weight: 600; padding: 7px 16px; }
+.proto .wrap { padding-inline: 0; }
+
+/* Barra superior */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 14px; min-height: 62px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); min-width: 0; }
+.brand svg { flex: none; }
+.brand b { font-family: var(--font-display); font-size: 18px; font-weight: 700; line-height: 1.05; }
+.nav { display: none; margin-left: auto; gap: 20px; }
+.nav a { color: var(--ink); text-decoration: none; font-weight: 700; font-size: 15px; }
+.nav a:hover { color: var(--teal); }
+.top .btn { margin-left: auto; }
+@media (min-width: 900px) { .nav { display: flex; } .top .btn { margin-left: 0; } }
+
+.btn {
+  font: inherit; font-weight: 800; font-size: 16px; line-height: 1.1; cursor: pointer; text-decoration: none; text-align: center;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 0 22px; border-radius: 12px; border: 2px solid var(--teal);
+  background: var(--teal); color: #FFFFFF;
+}
+.btn:hover { background: #0B6C64; border-color: #0B6C64; }
+.btn.ghost { background: var(--surface); color: var(--teal); }
+.btn.ghost:hover { background: var(--teal-soft); }
+.btn.small { min-height: 40px; padding: 0 16px; font-size: 14px; }
+.btn[aria-pressed="true"] { background: var(--teal-soft); color: var(--teal); }
+.btn:disabled { opacity: .55; cursor: not-allowed; }
+
+/* Portada */
+.hero { padding-block: 34px 18px; }
+.hero .wrap { display: grid; gap: 28px; }
+.hero-copy { display: grid; gap: 16px; align-content: start; min-width: 0; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.chips-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; padding: 0; list-style: none; }
+.chips-row li { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 13px; font-size: 14px; font-weight: 700; }
+.door {
+  background: linear-gradient(180deg, var(--teal-soft) 0%, var(--surface) 70%);
+  border: 1px solid var(--line); border-radius: 22px; padding: 24px 20px; min-width: 0; overflow-wrap: anywhere;
+}
+.door h2 { font-size: 21px; margin-bottom: 14px; }
+.facts { margin: 0; display: grid; gap: 12px; }
+.facts div { display: grid; gap: 1px; }
+.facts dt { font-size: 12.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
+.facts dd { margin: 0; font-weight: 700; }
+@media (min-width: 900px) { .hero .wrap { grid-template-columns: 1.15fr .85fr; align-items: center; gap: 48px; } .hero { padding-block: 52px 28px; } }
+
+/* Secciones */
+section.block { padding-block: 40px; scroll-margin-top: 72px; }
+section.block > .wrap > header { display: grid; gap: 10px; margin-bottom: 22px; }
+.band { background: var(--surface); border-block: 1px solid var(--line); }
+
+/* Tarifario */
+.groups { display: grid; gap: 24px; }
+.grp { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 16px 8px; min-width: 0; }
+.grp > header { display: grid; gap: 4px; margin-bottom: 6px; }
+.grp ul { list-style: none; margin: 0; padding: 0; }
+.svc { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+.svc-main { flex: 1 1 240px; min-width: 0; }
+.svc-name { font-weight: 800; }
+.svc-desc { font-size: 14px; color: var(--muted); }
+.svc-side { display: flex; align-items: center; gap: 14px; margin-left: auto; }
+.price { font-family: var(--font-display); font-weight: 700; font-size: 20px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.price span { font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--muted); }
+.tag { display: inline-block; vertical-align: middle; font-size: 12px; font-weight: 800; background: var(--peach); color: var(--peach-ink); border-radius: 6px; padding: 1px 8px; margin-left: 4px; }
+.otro { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; background: var(--teal-soft); border-radius: 18px; padding: 18px 16px; }
+.otro p { flex: 1 1 260px; font-weight: 700; }
+.notes { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 15px; color: var(--muted); }
+.notes li { padding-left: 18px; position: relative; }
+.notes li::before { content: ""; position: absolute; left: 0; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--aqua); }
+
+/* Urgencia y emergencia */
+.two { display: grid; gap: 14px; }
+@media (min-width: 760px) { .two { grid-template-columns: 1fr 1fr; } }
+.card { border-radius: 18px; padding: 20px 18px; border: 1px solid var(--line); background: var(--surface); min-width: 0; display: grid; gap: 8px; align-content: start; }
+.card.ok { background: var(--teal-soft); border-color: var(--aqua); }
+.card.stop { background: var(--alert-bg); border-color: var(--alert-line); color: var(--alert-ink); }
+.card.stop h3, .card.stop .eyebrow { color: var(--alert-ink); }
+.card ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.mini { font-size: 12.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.note-wide { margin-top: 14px; font-weight: 700; }
+
+/* Pasos */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: paso; }
+.steps li { counter-increment: paso; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 16px 16px 62px; position: relative; min-width: 0; }
+.steps li::before { content: counter(paso); position: absolute; left: 16px; top: 14px; width: 32px; height: 32px; border-radius: 50%; background: var(--teal); color: #FFFFFF; font-family: var(--font-display); font-weight: 700; display: grid; place-items: center; }
+.steps b { display: block; }
+@media (min-width: 760px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+
+/* Sobre mí */
+.about { display: grid; gap: 26px; }
+.photo { border-radius: 150px 150px 22px 22px; background: linear-gradient(180deg, var(--aqua), var(--teal-soft)); border: 1px solid var(--line); aspect-ratio: 4 / 5; max-width: 300px; width: 100%; display: grid; place-content: center; text-align: center; padding: 20px; gap: 6px; }
+.photo b { font-family: var(--font-display); font-size: 44px; color: var(--teal); }
+.photo span { font-size: 13px; font-weight: 700; color: var(--muted); }
+.about-copy { display: grid; gap: 14px; min-width: 0; }
+.cred { display: grid; gap: 10px; margin: 0; }
+.cred div { border-top: 1px solid var(--line); padding-top: 10px; }
+.cred dt { font-size: 12.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
+.cred dd { margin: 2px 0 0; font-weight: 700; }
+.cred dd small { display: block; font-weight: 600; color: var(--muted); font-size: 14px; }
+.vals { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
+.vals li { background: var(--peach); color: var(--peach-ink); border-radius: 999px; padding: 5px 13px; font-size: 14px; font-weight: 800; }
+.reasons { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.reasons li { padding-left: 26px; position: relative; font-weight: 700; }
+.reasons li::before { content: ""; position: absolute; left: 0; top: .35em; width: 16px; height: 16px; border-radius: 50%; background: var(--teal); }
+.reasons li::after { content: ""; position: absolute; left: 5px; top: calc(.35em + 3px); width: 4px; height: 8px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+@media (min-width: 820px) { .about { grid-template-columns: 300px 1fr; gap: 44px; align-items: start; } }
+
+/* Zonas, horarios y pagos */
+.info { display: grid; gap: 14px; }
+@media (min-width: 760px) { .info { grid-template-columns: 1fr 1fr; } }
+.kv { margin: 0; display: grid; gap: 0; }
+.kv div { display: grid; gap: 2px; padding: 10px 0; border-top: 1px solid var(--line); }
+.kv div:first-child { border-top: 0; padding-top: 0; }
+.kv dt { font-size: 13px; font-weight: 800; color: var(--muted); }
+.kv dd { margin: 0; font-weight: 700; }
+
+/* Formulario */
+.form-card { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 22px 16px; display: grid; gap: 26px; min-width: 0; }
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 14px; }
+legend { font-family: var(--font-display); font-weight: 700; font-size: 20px; padding: 0; margin-bottom: 4px; }
+.grid2 { display: grid; gap: 14px; }
+@media (min-width: 700px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > label, .lbl { font-weight: 800; font-size: 15px; }
+.opt { font-weight: 600; color: var(--muted); }
+.hint { font-size: 13.5px; color: var(--muted); }
+input[type=text], input[type=tel], input[type=number], input[type=date], select, textarea {
+  width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: #FFFFFF;
+  border: 1.5px solid #9FC7C1; border-radius: 10px; padding: 11px 12px; min-height: 48px;
+}
+textarea { min-height: 88px; resize: vertical; }
+input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: #B3541E; background: #FFF8F3; }
+.err { color: #9A3E0C; font-size: 14px; font-weight: 700; }
+.chipset { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; }
+.chip input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.chip span { display: block; padding: 9px 14px; border: 1.5px solid #9FC7C1; border-radius: 999px; background: #FFFFFF; font-size: 14.5px; font-weight: 700; line-height: 1.25; }
+.chip input:checked + span { background: var(--teal); border-color: var(--teal); color: #FFFFFF; }
+.chip input:focus-visible + span { outline: 3px solid var(--teal); outline-offset: 2px; }
+.group-lbl { font-size: 12.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 8px 0 -2px; }
+.estimate { background: var(--teal-soft); border-radius: 14px; padding: 14px 16px; display: grid; gap: 4px; }
+.estimate b { font-family: var(--font-display); font-size: 22px; font-variant-numeric: tabular-nums; }
+.warn { background: var(--alert-bg); color: var(--alert-ink); border: 1px solid var(--alert-line); border-radius: 12px; padding: 12px 14px; font-weight: 700; font-size: 15px; }
+.check { display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start; }
+.check input { width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--teal); }
+.check label { font-weight: 700; font-size: 15px; }
+.formerr { background: #FFF1E8; border: 1px solid #F0B999; color: #8A3708; border-radius: 12px; padding: 12px 14px; font-weight: 700; }
+.result { background: var(--surface); border: 2px solid var(--teal); border-radius: 22px; padding: 22px 16px; display: grid; gap: 14px; }
+.result textarea { min-height: 260px; font-size: 14px; }
+.btnrow { display: flex; flex-wrap: wrap; gap: 10px; }
+.btnrow .btn { flex: 1 1 200px; }
+.okmsg { color: var(--teal); font-weight: 800; min-height: 22px; }
+
+/* Opiniones, consejos */
+.empty { border: 2px dashed var(--aqua); border-radius: 18px; padding: 22px 18px; background: var(--surface); display: grid; gap: 6px; }
+.tips { display: grid; gap: 12px; margin-top: 4px; }
+@media (min-width: 760px) { .tips { grid-template-columns: repeat(3, 1fr); } }
+.tip { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+.tip .mini { color: var(--teal); }
+
+/* Preguntas */
+.faq { display: grid; gap: 10px; max-width: 760px; }
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+summary { cursor: pointer; font-weight: 800; padding: 15px 16px; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-family: var(--font-display); font-size: 24px; line-height: 1; color: var(--teal); flex: none; }
+details[open] summary::after { content: "–"; }
+details p { padding: 0 16px 16px; color: var(--muted); }
+
+/* Contacto */
+.contact { display: grid; gap: 16px; max-width: 640px; }
+.num { font-family: var(--font-display); font-weight: 700; font-size: 28px; font-variant-numeric: tabular-nums; }
+footer.foot { border-top: 1px solid var(--line); padding-block: 28px 36px; font-size: 14px; color: var(--muted); }
+footer.foot .wrap { display: grid; gap: 6px; }
+
+/* Barra de servicios elegidos */
+.pick { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: var(--surface); border-top: 2px solid var(--teal); padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); }
+.pick .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-inline: 0; }
+.pick p { font-weight: 800; line-height: 1.25; min-width: 0; }
+.pick p span { display: block; font-weight: 600; font-size: 13.5px; color: var(--muted); }
+
+/* v2: navegación por pestañas para ordenar la información */
+.stick { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+.stick .top { position: static; border-bottom: 0; }
+.tabs .wrap { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; padding-block: 0 8px; }
+.tabs a { white-space: nowrap; text-align: center; text-decoration: none; font-weight: 800; font-size: 13px; line-height: 1.15; color: var(--muted); padding: 11px 2px; border-radius: 10px; border: 1.5px solid transparent; min-height: 44px; display: grid; place-items: center; }
+.tabs a:hover { background: var(--teal-soft); color: var(--ink); }
+.tabs a[aria-selected="true"] { background: var(--teal); color: #FFFFFF; }
+@media (min-width: 700px) { .tabs a { font-size: 16px; } .tabs .wrap { max-width: 720px; } }
+.stick .top .wrap { justify-content: center; min-height: 64px; }
+.stick .brand b { text-align: left; }
+.heroPhoto { border-radius: 22px; background: linear-gradient(180deg, var(--teal-soft), var(--aqua)); border: 1px solid var(--line); aspect-ratio: 4 / 5; max-width: min(100%, 340px); width: 100%; margin-inline: auto; display: grid; place-content: center; text-align: center; padding: 20px; gap: 6px; }
+.heroPhoto b { font-family: var(--font-display); font-size: 54px; color: var(--teal); }
+.heroPhoto span { font-size: 13px; font-weight: 700; color: var(--muted); }
+.datos { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.datos li { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: grid; gap: 2px; min-width: 0; }
+.datos b { font-family: var(--font-display); font-size: 17px; color: var(--teal); }
+.sgroup { background: var(--surface); border: 1.5px solid var(--line); border-radius: 14px; }
+.sgroup[open] { border-color: var(--aqua); }
+.sgroup > summary { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2px 12px; padding: 14px 44px 14px 16px; position: relative; font-weight: 800; }
+.sgroup > summary::after { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); }
+.sg-t { grid-column: 1; font-family: var(--font-display); font-size: 17px; }
+.sg-c { grid-column: 1; font-size: 13px; font-weight: 600; color: var(--muted); }
+.sg-n { grid-column: 2; grid-row: 1 / span 2; background: var(--teal); color: #FFFFFF; font-size: 12.5px; font-weight: 800; border-radius: 999px; padding: 3px 10px; }
+.sgroup .chipset { padding: 0 16px 16px; }
+#chips { display: grid; gap: 10px; }
+input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.grid2 { align-items: start; }
+.grid2 .field > input, .grid2 .field > select { height: 48px; }
+input[type=date] { -webkit-appearance: none; appearance: none; display: block; width: 100%; min-width: 0; max-width: 100%; height: 48px; line-height: 1.2; }
+input[type=date]::-webkit-date-and-time-value { text-align: left; min-height: 1.2em; }
+select { height: 48px; -webkit-appearance: none; appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--teal) 50%), linear-gradient(135deg, var(--teal) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; padding-right: 36px; }
+
+/* menú flotante: cápsula con indicador deslizante */
+.stick { border-bottom: 0; background: linear-gradient(180deg, var(--bg) 78%, rgba(238,249,247,0)); }
+.stick .top .wrap { min-height: 58px; }
+.stick .tabs .wrap { display: block; padding-block: 0 12px; max-width: 1040px; }
+.stick .dock { --i: 0; position: relative; display: grid; grid-template-columns: repeat(5, 1fr); padding: 5px; gap: 0; max-width: 640px; margin-inline: auto; background: rgba(255,255,255,.94); border: 1px solid var(--line); border-radius: 999px; box-shadow: 0 10px 28px -8px rgba(14,129,120,.38), 0 2px 6px rgba(23,57,61,.08); }
+.stick .dock .thumb { position: absolute; top: 5px; bottom: 5px; left: 5px; width: calc((100% - 10px) / 5); border-radius: 999px; background: linear-gradient(135deg, #14A397 0%, #0E8178 55%, #0A5F58 100%); box-shadow: 0 8px 18px -4px rgba(14,129,120,.65), inset 0 1px 0 rgba(255,255,255,.35); transform: translateX(calc(var(--i) * 100%)); transition: transform .42s cubic-bezier(.34,1.45,.5,1); z-index: 0; }
+.stick .dock a { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 54px; padding: 6px 0; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-size: 12px; font-weight: 800; line-height: 1.1; white-space: nowrap; transition: color .25s, transform .25s; }
+.stick .dock a svg { transition: transform .35s cubic-bezier(.34,1.6,.5,1); }
+.stick .dock a:hover { background: transparent; color: var(--teal); }
+.stick .dock a[aria-selected="true"], .stick .dock a[aria-selected="true"]:hover { background: transparent; color: #FFFFFF; }
+.stick .dock a[aria-selected="true"] svg { transform: translateY(-1px) scale(1.12); }
+@media (min-width: 700px) { .stick .dock a { flex-direction: row; gap: 8px; font-size: 15px; min-height: 52px; } }
+@media (prefers-reduced-motion: reduce) { .stick .dock .thumb, .stick .dock a, .stick .dock a svg { transition: none; } }
+
+/* ===== SOLO CELULAR (hasta 699 px). El escritorio no cambia ===== */
+.wizbar, .wiznav, .dots { display: none; }
+.credd > summary { display: none; }
+@media (max-width: 699px) {
+  /* Inicio: foto más pequeña */
+  .heroPhoto { aspect-ratio: 1 / 1; max-width: 190px; }
+  .heroPhoto b { font-size: 40px; }
+  .hero .wrap { gap: 20px; }
+  /* Inicio: los 6 pasos se deslizan con el dedo */
+  .steps { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; margin-inline: -16px; padding: 2px 16px 6px; scroll-padding-inline: 16px; }
+  .steps::-webkit-scrollbar { display: none; }
+  .steps li { flex: 0 0 78%; scroll-snap-align: start; }
+  .dots { display: flex; justify-content: center; gap: 7px; margin-top: 12px; }
+  .dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--aqua); transition: width .25s, background .25s; }
+  .dots i.on { width: 22px; border-radius: 999px; background: var(--teal); }
+  /* Inicio: datos en dos columnas */
+  .datos { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .datos li { padding: 12px; }
+  .datos li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .datos b { font-size: 16px; }
+  /* Sobre mí: más corto */
+  .photo { aspect-ratio: 1 / 1; max-width: 170px; margin-inline: auto; border-radius: 22px; }
+  .photo b { font-size: 36px; }
+  .about { gap: 18px; }
+  .about-copy .lead { font-size: 16px; }
+  .credd { background: var(--surface); border: 1.5px solid var(--line); border-radius: 14px; }
+  .credd > summary { display: flex; font-family: var(--font-display); font-size: 17px; }
+  .credd .cred { padding: 0 16px 14px; }
+  .credd .cred div:first-child { border-top: 1px solid var(--line); }
+  /* Cotizar: formulario por pasos */
+  .form-card.wiz { padding: 16px 14px 18px; gap: 18px; scroll-margin-top: 170px; }
+  .form-card.wiz fieldset { display: none; }
+  .form-card.wiz fieldset.cur { display: grid; }
+  .form-card.wiz #submit { display: none; }
+  .form-card.wiz .wizbar { display: grid; gap: 8px; }
+  .wiz-t { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 14px; color: var(--muted); font-weight: 700; }
+  .wiz-t b { color: var(--teal); font-size: 14px; letter-spacing: .04em; text-transform: uppercase; }
+  .wiz-track { height: 8px; border-radius: 999px; background: var(--teal-soft); overflow: hidden; }
+  .wiz-track i { display: block; height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, #14A397, #0E8178); transition: width .35s ease; }
+  .form-card.wiz .wiznav { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; }
+  .form-card.wiz .wiznav .btn { width: 100%; }
+  .form-card.wiz .wiznav.first { grid-template-columns: 1fr; }
+  .form-card.wiz .wiznav.first #wizBack { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .wiz-track i, .dots i { transition: none; } }
+html { scroll-padding-top: 180px; }
+.exd > summary { display: none; }
+.faq-more { display: none; }
+@media (max-width: 699px) {
+  .exd { border: 1.5px solid currentColor; border-radius: 12px; background: rgba(255,255,255,.55); }
+  .exd > summary { display: flex; padding: 11px 14px; font-size: 15px; }
+  .exd > summary::after { color: inherit; }
+  .exd ul { padding: 0 14px 14px 34px; }
+  .card.stop .exd { border-color: var(--alert-line); }
+  .card.ok .exd { border-color: var(--aqua); }
+  .faq.collapsed .faqx { display: none; }
+  .faq-more { display: flex; margin-top: 12px; width: 100%; }
+  #s-preguntas .faq { max-width: none; }
+  #s-urgencias header .lead { font-size: 16px; }
+}
+.panel[hidden] { display: none; }
+.aviso { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; background: var(--alert-bg); color: var(--alert-ink); border: 1px solid var(--alert-line); border-radius: 18px; padding: 18px 16px; }
+.aviso > div { flex: 1 1 260px; display: grid; gap: 4px; min-width: 0; }
+.aviso .small { color: var(--alert-ink); }
+.aviso .btn.ghost { border-color: var(--alert-ink); color: var(--alert-ink); background: transparent; }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.seg button { font: inherit; font-weight: 800; font-size: 14.5px; cursor: pointer; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid #9FC7C1; background: var(--surface); color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: #FFFFFF; }
+.grp[hidden] { display: none; }
+details.more { margin-top: 18px; }
+details.more .notes { margin: 0; padding: 0 16px 16px; }
+details.info-d { padding: 0; }
+details.info-d summary { font-family: var(--font-display); font-size: 19px; }
+details.info-d .kv { padding: 0 16px 16px; }
+details.info-d .kv div:first-child { border-top: 1px solid var(--line); padding-top: 10px; }
+.info { grid-template-columns: 1fr; }
+.contactbar { background: var(--teal-soft); border-top: 1px solid var(--line); padding-block: 26px; }
+.contactbar .wrap { display: grid; gap: 14px; max-width: 1040px; }
+.contactbar .wrap > div { min-width: 0; display: grid; gap: 4px; }
+.contactbar .btnrow { display: flex; flex-wrap: wrap; gap: 10px; }
+.contactbar .btnrow .btn { flex: 1 1 200px; }
+.hero { padding-block: 26px 10px; }
+section.block { padding-block: 28px; }
+body { overflow-y: auto; scrollbar-width: none; }
+body::-webkit-scrollbar { display: none; }
+textarea { scrollbar-width: none; }
+textarea::-webkit-scrollbar { display: none; }
+</style>
+</head>
+<body>
+
+<div class="proto"><div class="wrap">Prototipo para revisión. Los textos, precios y el diseño todavía pueden cambiar.</div></div>
+
+<div class="stick">
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Bienestar a tu puerta, inicio">
+      <svg width="38" height="38" viewBox="0 0 40 40" role="img" aria-hidden="true"><path d="M5 37V19C5 10.7 11.7 4 20 4s15 6.7 15 15v18z" fill="#D2F0EB" stroke="#0E8178" stroke-width="2.4" stroke-linejoin="round"/><rect x="17.6" y="14" width="4.8" height="15" rx="1.4" fill="#0E8178"/><rect x="12.5" y="19.1" width="15" height="4.8" rx="1.4" fill="#0E8178"/></svg>
+      <b>Bienestar<br>a tu puerta</b>
+    </a>
+  </div>
+</header>
+<nav class="tabs" role="tablist" aria-label="Secciones de la página"><div class="wrap"><div class="dock" id="dock"><span class="thumb" aria-hidden="true"></span>
+      <a role="tab" id="tab-inicio" href="#inicio" data-tab="inicio"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7.5L21 11"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5.5h4V20"/></svg><span>Inicio</span></a>
+      <a role="tab" id="tab-servicios" href="#servicios" data-tab="servicios"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4.5h6v2.5H9z"/><path d="M9 12h6M9 16h4"/></svg><span>Servicios</span></a>
+      <a role="tab" id="tab-sobre-mi" href="#sobre-mi" data-tab="sobre-mi"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.6 7-5.6s6.2 2 7 5.6"/></svg><span>Sobre mí</span></a>
+      <a role="tab" id="tab-info" href="#info" data-tab="info"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.2"/><circle cx="12" cy="7.8" r=".6" fill="currentColor"/></svg><span>Info</span></a>
+      <a role="tab" id="tab-cotizar" href="#cotizar" data-tab="cotizar"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16v10.5H9.5L5.5 20v-4H4z"/><path d="M8 10h8M8 13h5"/></svg><span>Cotizar</span></a>
+    </div></div></nav>
+</div>
+<main>
+<div class="panel" id="panel-inicio" role="tabpanel" aria-labelledby="tab-inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Enfermería a domicilio · Villa El Salvador</p>
+        <h1>Más que atención, un cuidado humano en tu casa</h1>
+        <p class="lead">Curaciones avanzadas, inyectables con receta, sondas y cuidado del adulto mayor, a cargo de una enfermera especialista en heridas y ostomías.</p>
+        <div class="cta-row">
+          <a class="btn" href="#cotizar">Solicitar cotización</a>
+          <a class="btn ghost" href="#servicios">Ver servicios y tarifas</a>
+        </div>
+        <ul class="chips-row" aria-label="Datos de la enfermera">
+          <li>Lic. en Enfermería · CEP 109139</li>
+          <li>Especialista en curación avanzada</li>
+          <li>5 años de experiencia</li>
+        </ul>
+      </div>
+      <div class="heroPhoto" role="img" aria-label="Espacio reservado para la foto de la enfermera"><b>PS</b><span>Aquí irá la foto de Paola</span></div>
+    </div>
+  </section>
+  <section class="block" id="s-aviso">
+    <div class="wrap">
+      <div class="aviso">
+        <div>
+          <p class="mini">Antes de pedir una cita</p>
+          <h3>Atendemos urgencias, no emergencias</h3>
+          <p class="small">Si hay riesgo inmediato para la vida, llama a emergencias o ve al hospital. No esperes una cotización.</p>
+        </div>
+        <a class="btn ghost small" href="#info">Ver la diferencia</a>
+      </div>
+    </div>
+  </section>
+  <section class="block band" id="s-como-funciona">
+    <div class="wrap">
+      <header>
+        <p class="eyebrow">Cómo funciona</p>
+        <h2>De tu solicitud a la visita, en seis pasos</h2>
+      </header>
+      <ol class="steps">
+        <li><b>Envías tu solicitud</b><span class="small">Eliges el servicio, la fecha y cuentas brevemente qué necesita el paciente.</span></li>
+        <li><b>Recibes la cotización</b><span class="small">Te llega por WhatsApp en menos de 1 hora y está vigente por 24 horas.</span></li>
+        <li><b>Pagas el adelanto</b><span class="small">Es el 30% del servicio. Con el pago, tu atención queda confirmada.</span></li>
+        <li><b>Recibes un recordatorio</b><span class="small">Te avisamos un día antes de la visita.</span></li>
+        <li><b>Te atendemos en casa</b><span class="small">La visita dura unos 45 minutos, según los antecedentes del paciente.</span></li>
+        <li><b>Hacemos seguimiento</b><span class="small">Después de la atención te escribimos para saber cómo sigue el paciente.</span></li>
+      </ol>
+    </div>
+  </section>
+  <section class="block" id="s-datos">
+    <div class="wrap">
+      <header>
+        <p class="eyebrow">Datos de atención</p>
+        <h2>Tu cita, sin salir de casa</h2>
+      </header>
+      <ul class="datos">
+        <li><b>Atendemos</b><span class="small">Lunes a domingo, de 8:00 a 20:00</span></li>
+        <li><b>Cotización</b><span class="small">En menos de 1 hora por WhatsApp</span></li>
+        <li><b>Duración</b><span class="small">Unos 45 minutos por atención</span></li>
+        <li><b>Zona</b><span class="small">Villa El Salvador</span></li>
+        <li><b>Pacientes</b><span class="small">Adultos y adultos mayores</span></li>
+      </ul>
+    </div>
+  </section>
+</div>
+<div class="panel" id="panel-servicios" role="tabpanel" aria-labelledby="tab-servicios" hidden>
+  <section class="block" id="s-servicios">
+    <div class="wrap">
+      <header>
+        <p class="eyebrow">Servicios y tarifario</p>
+        <h2>Elige lo que necesitas</h2>
+        <p class="lead">Tarifas estándar por atención. Lo que no esté en la lista se cotiza aparte.</p>
+      </header>
+      <div class="seg" id="seg" role="group" aria-label="Tipo de servicio"></div>
+      <div class="groups" id="catalogo"></div>
+      <div class="otro">
+        <p>¿Necesitas otro procedimiento que no aparece aquí? Lo evaluamos y te enviamos una cotización a medida.</p>
+        <button type="button" class="btn small" id="btn-otro" aria-pressed="false">Cotizar otro servicio</button>
+      </div>
+      <details class="more"><summary>Qué incluye la tarifa y condiciones</summary><ul class="notes">
+        <li>Las tarifas incluyen los materiales: jeringas, gasas, guantes y algodón.</li>
+        <li>Los medicamentos los compra el paciente.</li>
+        <li>El traslado se coordina con tu familia y no está incluido en la tarifa. Como referencia, es de S/ 20 según la distancia.</li>
+        <li>La atención el mismo día o de un paciente de alto cuidado puede tener un recargo. Se indica en la cotización.</li>
+      </ul></details>
+    </div>
+  </section>
+</div>
+<div class="panel" id="panel-sobre-mi" role="tabpanel" aria-labelledby="tab-sobre-mi" hidden>
+  <section class="block" id="s-sobre-mi">
+    <div class="wrap">
+      <header>
+        <p class="eyebrow">Sobre mí</p>
+        <h2>Paola Estefany Sánchez Alfaro</h2>
+      </header>
+      <div class="about">
+        <div class="photo" role="img" aria-label="Espacio reservado para la foto de Paola"><b>PS</b><span>Aquí irá la foto de Paola</span></div>
+        <div class="about-copy">
+          <p class="lead">Soy licenciada en Enfermería y especialista en curación avanzada de heridas y ostomías. Tengo 5 años de experiencia en emergencia, hospitalización, salud comunitaria, atención domiciliaria y consultorio privado. Atiendo a adultos y adultos mayores en Villa El Salvador, con un acompañamiento especializado según los antecedentes de cada paciente.</p>
+          <details class="credd" id="credd"><summary>Formación y colegiatura</summary>
+          <dl class="cred">
+            <div><dt>Colegiatura</dt><dd>Colegio de Enfermeros del Perú, CEP N.° 109139</dd></div>
+            <div><dt>Licenciatura</dt><dd>Enfermería, Universidad Privada San Juan Bautista<small>Licenciada en 2021</small></dd></div>
+            <div><dt>Segunda especialidad</dt><dd>Enfermería en Cuidados Quirúrgicos, mención en Tratamiento Avanzado en Heridas y Ostomías<small>Universidad Norbert Wiener · Egresada, titulación pendiente</small></dd></div>
+            <div><dt>Capacitación</dt><dd>Curso de manejo de heridas</dd></div>
+          </dl>
+          </details>
+          <h3>Por qué elegirme</h3>
+          <ul class="reasons">
+            <li>Especialista en curación avanzada de heridas y ostomías.</li>
+            <li>Cotización en menos de 1 hora.</li>
+            <li>Materiales incluidos en la tarifa.</li>
+            <li>Recordatorio antes de la cita y seguimiento después.</li>
+          </ul>
+          <ul class="vals" aria-label="Valores">
+            <li>Trato humano</li><li>Puntualidad</li><li>Confianza</li><li>Calidez</li><li>Discreción</li><li>Rapidez</li><li>Experiencia hospitalaria</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="block band" id="s-opiniones">
+    <div class="wrap">
+      <header>
+        <p class="eyebrow">Opiniones</p>
+        <h2>Lo que dicen los pacientes</h2>
+      </header>
+      <div class="empty">
+        <h3>Aún no hay opiniones publicadas</h3>
+        <p class="small">Después de cada atención invitaremos al paciente o a su familia a contar su experiencia. Solo publicaremos las opiniones que nos autoricen.</p>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="panel" id="panel-info" role="tabpanel" aria-labelledby="tab-info" hidden>
+  <section class="block" id="s-urgencias">
+    <div class="wrap">
+      <header>
+        <p class="eyebrow">Antes de pedir una cita</p>
+        <h2>Atendemos urgencias. No atendemos emergencias.</h2>
+        <p class="lead">Distinguir una de otra puede salvar una vida. Léelo con calma antes de solicitar el servicio.</p>
+      </header>
+      <div class="two">
+        <article class="card ok">
+          <p class="mini">Sí lo atendemos</p>
+          <h3>Urgencia</h3>
+          <p>Necesitas atención pronto, pero el paciente está estable y no corre riesgo inmediato de vida.</p>
+          <details class="exd"><summary>Ver ejemplos</summary><ul>
+            <li>Una curación que no puede esperar varios días.</li>
+            <li>Una inyección indicada por el médico para hoy o mañana.</li>
+            <li>Cambio de sonda o cuidado de una ostomía que debe hacerse pronto.</li>
+          </ul></details>
+        </article>
+        <article class="card stop">
+          <p class="mini">No lo atendemos</p>
+          <h3>Emergencia</h3>
+          <p>Hay riesgo inmediato para la vida. No esperes una cotización ni un mensaje.</p>
+          <details class="exd"><summary>Ver ejemplos</summary><ul>
+            <li>Dificultad grave para respirar.</li>
+            <li>Dolor fuerte en el pecho.</li>
+            <li>Pérdida del conocimiento o convulsiones.</li>
+            <li>Sangrado abundante que no se detiene.</li>
+            <li>Rostro caído o imposibilidad de hablar de golpe.</li>
+          </ul></details>
+          <p><b>Llama a emergencias o lleva al paciente al hospital más cercano.</b></p>
+        </article>
+      </div>
+      <p class="note-wide">Si durante la atención el paciente empeora, la enfermera te orientará para que sea atendido en un hospital.</p>
+    </div>
+  </section>
+  <section class="block band" id="s-zonas">
+    <div class="wrap">
+      <header><p class="eyebrow">Zonas, horarios y pagos</p><h2>Cómo y cuándo te atendemos</h2></header>
+      <div class="info">
+        <details class="card info-d" open><summary>Dónde y cuándo atendemos</summary>
+          <dl class="kv">
+            <div><dt>Zona de atención</dt><dd>Villa El Salvador. Por ahora, solo este distrito.</dd></div>
+            <div><dt>Días y horario</dt><dd>Lunes a domingo, de 8:00 a 20:00</dd></div>
+            <div><dt>Atención nocturna</dt><dd>Solo con aviso previo</dd></div>
+            <div><dt>Reserva</dt><dd>Con 24 horas de anticipación. El mismo día, solo si hay espacio.</dd></div>
+            <div><dt>Pacientes</dt><dd>Adultos y adultos mayores. No atendemos menores de edad.</dd></div>
+            <div><dt>Acompañante</dt><dd>Con adultos mayores, debe haber un adulto presente durante la atención.</dd></div>
+          </dl>
+        </details>
+        <details class="card info-d"><summary>Pagos y confirmación</summary>
+          <dl class="kv">
+            <div><dt>Adelanto</dt><dd>30% del servicio. Al pagarlo, la atención queda confirmada.</dd></div>
+            <div><dt>Medios de pago</dt><dd>Efectivo, Yape, Plin y transferencia bancaria</dd></div>
+            <div><dt>Comprobante</dt><dd>Recibo por honorarios</dd></div>
+            <div><dt>Vigencia de la cotización</dt><dd>24 horas</dd></div>
+            <div><dt>Si cancelas</dt><dd>Se devuelve tu dinero en un plazo máximo de 24 horas.</dd></div>
+            <div><dt>Si reprogramas</dt><dd>Avísanos con 24 horas de anticipación.</dd></div>
+          </dl>
+        </details>
+      </div>
+    </div>
+  </section>
+  <section class="block" id="s-preguntas">
+    <div class="wrap">
+      <header>
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2>Lo que más nos preguntan</h2>
+      </header>
+      <div class="faq">
+        <details><summary>¿Necesito receta médica?</summary><p>Para inyectables, sueroterapia y colocación de vía periférica, sí, siempre. Para los demás servicios no es obligatoria, pero ayuda mucho conocer el diagnóstico y el tratamiento.</p></details>
+        <details><summary>¿Atienden emergencias?</summary><p>No. Atendemos urgencias, es decir, casos que necesitan atención pronto pero sin riesgo inmediato de vida. Si hay una emergencia, llama a emergencias o ve al hospital más cercano.</p></details>
+        <details><summary>¿En qué zonas atienden?</summary><p>Por ahora, solo en Villa El Salvador.</p></details>
+        <details><summary>¿Cuánto demora la cotización y cuánto dura?</summary><p>Te la enviamos por WhatsApp en menos de 1 hora y está vigente por 24 horas.</p></details>
+        <details><summary>¿Cómo se confirma mi atención?</summary><p>Cuando pagas el adelanto, que es el 30% del servicio.</p></details>
+        <details><summary>¿Qué incluye la tarifa?</summary><p>Los materiales: jeringas, gasas, guantes y algodón. No incluye los medicamentos, que compra el paciente, ni el traslado, que se coordina con tu familia.</p></details>
+        <details><summary>¿Cómo puedo pagar?</summary><p>En efectivo, por Yape, por Plin o con transferencia bancaria. Emitimos recibo por honorarios.</p></details>
+        <details><summary>¿Y si cancelo o reprogramo?</summary><p>Si cancelas, se te devuelve el dinero en un plazo máximo de 24 horas. Si reprogramas, avísanos con 24 horas de anticipación.</p></details>
+        <details><summary>¿Atienden niños?</summary><p>No. Atendemos adultos y adultos mayores. Con adultos mayores pedimos que haya un adulto presente durante la atención.</p></details>
+        <details><summary>¿Qué pasa si el paciente empeora durante la atención?</summary><p>La enfermera te orientará para que sea atendido en un hospital.</p></details>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="panel" id="panel-cotizar" role="tabpanel" aria-labelledby="tab-cotizar" hidden>
+  <section class="block band" id="s-reservar">
+    <div class="wrap">
+      <header>
+        <p class="eyebrow">Solicitar cotización</p>
+        <h2>Cuéntanos qué necesita el paciente</h2>
+        <p class="lead">Con estos datos la enfermera prepara tu cotización antes de contactarte. Los campos marcados con * son obligatorios.</p>
+      </header>
+
+      <form class="form-card" id="form" novalidate>
+        <fieldset>
+          <legend>1. Servicios que necesitas *</legend>
+          <div id="chips"></div>
+          <p class="err" id="err-servicios" hidden></p>
+          <div class="estimate" id="estimate" aria-live="polite"></div>
+          <div id="recetaWrap" hidden class="field">
+            <label for="f-receta">¿Tienes receta médica vigente? *</label>
+            <select id="f-receta">
+              <option value="">Elige una opción</option>
+              <option value="si">Sí, tengo la receta</option>
+              <option value="no">No tengo receta</option>
+            </select>
+            <p class="hint">Los inyectables, la sueroterapia y la vía periférica se aplican siempre con receta. Te pediremos una foto de la receta por WhatsApp.</p>
+            <p class="err" id="err-receta" hidden></p>
+          </div>
+          <p class="warn" id="recetaWarn" hidden>Sin receta médica no podemos aplicar inyectables, sueroterapia ni colocar una vía periférica. Pide la receta a tu médico o quita esos servicios de tu solicitud.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>2. Quién solicita</legend>
+          <div class="grid2">
+            <div class="field"><label for="f-solicitante">Tu nombre completo *</label><input type="text" id="f-solicitante" autocomplete="name"><p class="err" id="err-solicitante" hidden></p></div>
+            <div class="field"><label for="f-celular">Tu celular (WhatsApp) *</label><input type="tel" id="f-celular" inputmode="tel" autocomplete="tel" placeholder="Ej.: 999 888 777"><p class="err" id="err-celular" hidden></p></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>3. El paciente</legend>
+          <div class="grid2">
+            <div class="field"><label for="f-paciente">Nombre completo del paciente *</label><input type="text" id="f-paciente"><p class="hint">Si es la misma persona, repite tu nombre.</p><p class="err" id="err-paciente" hidden></p></div>
+            <div class="field"><label for="f-edad">Edad del paciente *</label><input type="number" id="f-edad" inputmode="numeric" min="0" max="120"><p class="hint">Atendemos desde los 18 años.</p><p class="err" id="err-edad" hidden></p></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>4. Dónde y cuándo</legend>
+          <div class="grid2">
+            <div class="field">
+              <label for="f-distrito">Distrito *</label>
+              <select id="f-distrito"><option value="ves">Villa El Salvador</option><option value="otro">Otro distrito</option></select>
+              <p class="err" id="err-distrito" hidden></p>
+            </div>
+            <div class="field"><label for="f-direccion">Dirección y referencias *</label><input type="text" id="f-direccion" autocomplete="street-address" placeholder="Calle, número, sector y una referencia"><p class="err" id="err-direccion" hidden></p></div>
+            <div class="field"><label for="f-fecha">Fecha preferida *</label><input type="date" id="f-fecha"><p class="hint" id="hint-fecha">Reserva con 24 horas de anticipación. El mismo día, solo si hay espacio.</p><p class="err" id="err-fecha" hidden></p></div>
+            <div class="field">
+              <label for="f-franja">Horario preferido *</label>
+              <select id="f-franja"><option value="">Elige un horario</option><option>Mañana, de 8:00 a 12:00</option><option>Tarde, de 12:00 a 16:00</option><option>Tarde, de 16:00 a 20:00</option></select>
+              <p class="hint">Si necesitas atención de noche, indícalo en los comentarios. Se coordina con aviso previo.</p>
+              <p class="err" id="err-franja" hidden></p>
+            </div>
+            <div class="check"><input type="checkbox" id="f-urgente"><label for="f-urgente">La necesito hoy o con urgencia (no es una emergencia). Puede tener recargo.</label></div>
+            <div class="field"><label for="f-promo">Código de promoción <span class="opt">(si tienes)</span></label><input type="text" id="f-promo" maxlength="30" autocomplete="off"></div>
+            <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true"><label for="f-web">No llenar</label><input type="text" id="f-web" tabindex="-1" autocomplete="off"></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>5. Información clínica <span class="opt">(opcional, pero ayuda mucho)</span></legend>
+          <p class="hint">Nos permite preparar tu cotización y llevar lo necesario. Solo la ve la enfermera.</p>
+          <div class="grid2">
+            <div class="field"><label for="f-diag">Diagnóstico <span class="opt">(si lo hay)</span></label><input type="text" id="f-diag"></div>
+            <div class="field"><label for="f-med">Medicamento y dosis <span class="opt">(según la receta)</span></label><input type="text" id="f-med"></div>
+            <div class="field"><label for="f-alergias">Alergias</label><input type="text" id="f-alergias"></div>
+            <div class="field"><label for="f-base">Enfermedades de base</label><input type="text" id="f-base" placeholder="Ej.: diabetes, hipertensión"></div>
+            <div class="field"><label for="f-peso">Peso aproximado (kg)</label><input type="number" id="f-peso" inputmode="decimal" min="0" max="300"></div>
+            <div class="field"><label for="f-acceso">¿Hay escaleras o ascensor?</label><input type="text" id="f-acceso"></div>
+            <div class="field"><label for="f-cuida">¿Quién cuida al paciente?</label><input type="text" id="f-cuida"></div>
+            <div class="field"><label for="f-mascotas">¿Hay mascotas en casa?</label><input type="text" id="f-mascotas"></div>
+          </div>
+          <div class="field"><label for="f-notas">Comentarios <span class="opt">(opcional)</span></label><textarea id="f-notas" placeholder="Por ejemplo: foto de la herida por enviar, horario especial, otro servicio que necesitas"></textarea></div>
+          <p class="hint">Si hay una herida, después de la cotización te pediremos una foto por WhatsApp.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>6. Confirmaciones</legend>
+          <div class="check"><input type="checkbox" id="f-noemerg"><label for="f-noemerg">Confirmo que esta solicitud no es una emergencia. Entiendo que, si hay riesgo para la vida, debo llamar a emergencias o ir al hospital. *</label></div>
+          <p class="err" id="err-noemerg" hidden></p>
+          <div class="check"><input type="checkbox" id="f-consent"><label for="f-consent">Autorizo a la enfermera a usar estos datos solo para preparar la cotización y coordinar la atención. *</label></div>
+          <p class="err" id="err-consent" hidden></p>
+        </fieldset>
+
+        <div class="formerr" id="formerr" role="alert" hidden></div>
+        <button class="btn" type="submit" id="submit">Revisar mi solicitud</button>
+      </form>
+
+      <section class="result" id="result" hidden aria-labelledby="result-h">
+        <h3 id="result-h">Tu solicitud está lista</h3>
+        <p class="okmsg" id="saved" hidden style="font-weight:800">Solicitud registrada con el código <span id="codeOut"></span>. La enfermera ya la puede ver.</p>
+        <p class="warn" id="notsaved" hidden>No pudimos registrar la solicitud en este momento, pero no pierdes nada: envía el mensaje por WhatsApp y la enfermera te atenderá igual.</p>
+        <p>Envía este mensaje por WhatsApp para que la enfermera te responda con tu cotización personalizada.</p>
+        <textarea id="msgOut" readonly aria-label="Mensaje de la solicitud"></textarea>
+        <div class="btnrow">
+          <a class="btn" id="waLink" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+          <button class="btn ghost" type="button" id="copyBtn">Copiar mensaje</button>
+          <button class="btn ghost" type="button" id="editBtn">Corregir datos</button>
+        </div>
+        <p class="okmsg" id="copyMsg" role="status"></p>
+      </section>
+    </div>
+  </section>
+</div>
+</main>
+<section class="contactbar" aria-label="Contacto">
+  <div class="wrap">
+    <div>
+      <p class="mini">Escríbenos por WhatsApp</p>
+      <p class="num" id="numTxt">947 238 365</p>
+      <p class="small">Lic. Paola Estefany Sánchez Alfaro · CEP N.° 109139 · Villa El Salvador</p>
+    </div>
+    <div class="btnrow">
+      <a class="btn" id="waDirect" href="https://wa.me/51947238365" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      <button class="btn ghost" type="button" id="copyNum">Copiar número</button>
+    </div>
+    <p class="okmsg" id="numMsg" role="status"></p>
+  </div>
+</section>
+<footer class="foot">
+  <div class="wrap">
+    <p><b>Bienestar a tu puerta</b> · Más que atención, un cuidado humano</p>
+    <p>Lic. Paola Estefany Sánchez Alfaro · CEP N.° 109139 · Villa El Salvador, Lima</p>
+    <p>La información de esta página es orientativa y no reemplaza la consulta médica.</p>
+  </div>
+</footer>
+<div class="pick" id="pick" hidden>
+  <div class="wrap">
+    <p id="pickTxt"></p>
+    <a class="btn small" href="#cotizar">Continuar</a>
+  </div>
+</div>
+
+<script>
+(function () {
+  var WA = '51947238365';
+  var SB_URL = 'https://yfhvhuqfeblrxibiwuxs.supabase.co';
+  var SB_KEY = 'sb_publishable_9d81qiSz5EKvxzL-2h7UuA_8LvDdWGU';
+  var SLUG = 'paola-sanchez';
+  var ADELANTO = 0.30;
+
+  var GROUPS = [
+    { id: 'heridas', short: 'Heridas y ostomías', t: 'Curación de heridas y ostomías', n: 'La especialidad de Paola' },
+    { id: 'inyect', short: 'Inyectables', t: 'Inyectables y vía venosa', n: 'Se aplican siempre con receta médica' },
+    { id: 'sondas', short: 'Sondas y respiración', t: 'Sondas y apoyo respiratorio', n: '' },
+    { id: 'controles', short: 'Controles', t: 'Controles y educación', n: '' },
+    { id: 'cuidado', short: 'Adulto mayor', t: 'Cuidado del adulto mayor', n: '' }
+  ];
+  var SERVICES = [
+    { id: 'herida-simple', g: 'heridas', n: 'Curación de heridas simples', d: 'Heridas pequeñas y quemaduras leves', p: 50 },
+    { id: 'herida-compleja', g: 'heridas', n: 'Curación de heridas complejas y úlceras por presión', d: 'Heridas crónicas, escaras y pie diabético', p: 100 },
+    { id: 'ostomias', g: 'heridas', n: 'Cuidado de ostomías', d: 'Colostomía, ileostomía y urostomía', p: 100 },
+    { id: 'puntos', g: 'heridas', n: 'Retiro de puntos', d: '', p: 30 },
+    { id: 'im', g: 'inyect', n: 'Inyectable intramuscular', d: 'Antibióticos, vitaminas, analgésicos', p: 20, rec: true },
+    { id: 'sc', g: 'inyect', n: 'Inyectable subcutáneo e insulina', d: 'Heparina, insulina y otros', p: 20, rec: true },
+    { id: 'ev', g: 'inyect', n: 'Inyectable endovenoso', d: 'Medicación directa por vena', p: 150, rec: true },
+    { id: 'suero', g: 'inyect', n: 'Sueroterapia y venoclisis', d: 'Hidratación, sueros y medicación en infusión', p: 150, rec: true },
+    { id: 'via', g: 'inyect', n: 'Colocación de vía periférica', d: '', p: 150, rec: true },
+    { id: 'vesical', g: 'sondas', n: 'Colocación o cambio de sonda vesical', d: '', p: 150 },
+    { id: 'sng', g: 'sondas', n: 'Sonda nasogástrica y alimentación enteral', d: '', p: 150 },
+    { id: 'nebu', g: 'sondas', n: 'Nebulizaciones', d: '', p: 50 },
+    { id: 'oxi', g: 'sondas', n: 'Oxigenoterapia y aspiración de secreciones', d: '', p: 50 },
+    { id: 'traqueo', g: 'sondas', n: 'Cuidado de traqueostomía', d: '', p: 100 },
+    { id: 'vitales', g: 'controles', n: 'Control de signos vitales', d: 'Presión, pulso, temperatura y saturación', p: 15 },
+    { id: 'glucosa', g: 'controles', n: 'Control de glucosa y educación en diabetes', d: '', p: 10 },
+    { id: 'educacion', g: 'controles', n: 'Educación al paciente y a la familia', d: 'Uso de medicinas, cuidados en casa y prevención', p: 50 },
+    { id: 'adulto-mayor', g: 'cuidado', n: 'Cuidado del adulto mayor', d: 'Acompañamiento y cuidado en casa', p: 300, u: 'por 12 horas' }
+  ];
+
+  function money(n) {
+    return 'S/ ' + n.toLocaleString('es-PE', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  }
+  function $(id) { return document.getElementById(id); }
+  function byId(id) { for (var i = 0; i < SERVICES.length; i++) if (SERVICES[i].id === id) return SERVICES[i]; return null; }
+
+  /* Cálculo referencial: suma de tarifas elegidas y adelanto del 30% */
+  function estimate(ids) {
+    var sum = 0, n = 0;
+    ids.forEach(function (id) { var s = byId(id); if (s) { sum += s.p; n++; } });
+    return { count: n, total: sum, deposit: Math.round(sum * ADELANTO * 100) / 100 };
+  }
+  window.__estimate = estimate;
+
+  var sel = {};
+  function selectedIds() { return SERVICES.filter(function (s) { return sel[s.id]; }).map(function (s) { return s.id; }); }
+  function needsRecipe() { return SERVICES.some(function (s) { return sel[s.id] && s.rec; }); }
+
+  /* Catálogo */
+  var cat = $('catalogo');
+  GROUPS.forEach(function (g) {
+    var items = SERVICES.filter(function (s) { return s.g === g.id; });
+    var html = '<section class="grp"><header><h3>' + g.t + '</h3>' + (g.n ? '<p class="small">' + g.n + '</p>' : '') + '</header><ul>';
+    items.forEach(function (s) {
+      html += '<li class="svc"><div class="svc-main"><p class="svc-name">' + s.n + (s.rec ? ' <span class="tag">Con receta</span>' : '') + '</p>' +
+        (s.d ? '<p class="svc-desc">' + s.d + '</p>' : '') + '</div>' +
+        '<div class="svc-side"><p class="price">' + money(s.p) + (s.u ? ' <span>' + s.u + '</span>' : '') + '</p>' +
+        '<button type="button" class="btn small" data-add="' + s.id + '" aria-pressed="false">Cotizar</button></div></li>';
+    });
+    cat.insertAdjacentHTML('beforeend', html + '</ul></section>');
+  });
+
+  /* Chips del formulario */
+  var chipsBox = $('chips'), chipHtml = '';
+  GROUPS.forEach(function (g) {
+    var items = SERVICES.filter(function (s) { return s.g === g.id; });
+    chipHtml += '<details class="sgroup" data-sg="' + g.id + '"><summary><span class="sg-t">' + g.t + '</span><span class="sg-n" data-count="' + g.id + '" hidden></span><span class="sg-c">' + items.length + (items.length === 1 ? ' opción' : ' opciones') + '</span></summary><div class="chipset">';
+    items.forEach(function (s) {
+      chipHtml += '<label class="chip"><input type="checkbox" data-chip="' + s.id + '" id="chip-' + s.id + '"><span>' + s.n + '</span></label>';
+    });
+    chipHtml += '</div></details>';
+  });
+  chipHtml += '<details class="sgroup" data-sg="otro"><summary><span class="sg-t">Otro procedimiento</span><span class="sg-n" data-count="otro" hidden></span><span class="sg-c">Se cotiza aparte</span></summary><div class="chipset"><label class="chip"><input type="checkbox" data-chip="otro" id="chip-otro"><span>Otro procedimiento (se cotiza aparte)</span></label></div></details>';
+  chipsBox.innerHTML = chipHtml;
+
+  function toggle(id) { sel[id] = !sel[id]; sync(); }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-add]') : null;
+    if (b) { toggle(b.getAttribute('data-add')); }
+  });
+  $('btn-otro').addEventListener('click', function () { toggle('otro'); });
+  chipsBox.addEventListener('toggle', function (e) { if (e.target.classList && e.target.classList.contains('sgroup')) e.target.setAttribute('data-touched', '1'); }, true);
+  chipsBox.addEventListener('change', function (e) {
+    var id = e.target.getAttribute('data-chip');
+    if (id) { sel[id] = e.target.checked; sync(); }
+  });
+
+  function sync() {
+    var ids = selectedIds();
+    var otro = !!sel.otro;
+    document.querySelectorAll('[data-add]').forEach(function (b) {
+      var on = !!sel[b.getAttribute('data-add')];
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.textContent = on ? 'Agregado' : 'Cotizar';
+    });
+    $('btn-otro').setAttribute('aria-pressed', otro ? 'true' : 'false');
+    $('btn-otro').textContent = otro ? 'Agregado' : 'Cotizar otro servicio';
+    document.querySelectorAll('[data-chip]').forEach(function (c) { c.checked = !!sel[c.getAttribute('data-chip')]; });
+    document.querySelectorAll('.sgroup').forEach(function (d) {
+      var gid = d.getAttribute('data-sg'), n = 0;
+      if (gid === 'otro') n = sel.otro ? 1 : 0;
+      else SERVICES.forEach(function (x) { if (x.g === gid && sel[x.id]) n++; });
+      var badge = d.querySelector('[data-count]');
+      badge.hidden = n === 0; badge.textContent = n + (n === 1 ? ' elegido' : ' elegidos');
+      if (n > 0 && !d.hasAttribute('data-touched')) d.open = true;
+    });
+
+    var est = estimate(ids), box = $('estimate');
+    var total = ids.length + (otro ? 1 : 0);
+    if (total === 0) {
+      box.innerHTML = '<span class="small">Elige uno o más servicios para ver un estimado referencial.</span>';
+    } else {
+      var line = '<span class="small">' + total + (total === 1 ? ' servicio elegido' : ' servicios elegidos') + '</span>';
+      if (est.count > 0) {
+        line += '<span>Estimado referencial: <b>' + money(est.total) + '</b></span><span>Adelanto del 30% para confirmar: <b>' + money(est.deposit) + '</b></span>';
+      }
+      if (otro) line += '<span class="small">El procedimiento adicional se cotiza aparte.</span>';
+      line += '<span class="small">No incluye traslado ni posibles recargos. La cotización final te llega por WhatsApp.</span>';
+      box.innerHTML = line;
+    }
+    $('recetaWrap').hidden = !needsRecipe();
+    if (!needsRecipe()) { $('f-receta').value = ''; }
+    $('recetaWarn').hidden = !(needsRecipe() && $('f-receta').value === 'no');
+
+    var pick = $('pick');
+    if (total > 0) {
+      $('pickTxt').innerHTML = total + (total === 1 ? ' servicio' : ' servicios') + (est.count > 0 ? '<span>Estimado ' + money(est.total) + ' · sin traslado</span>' : '<span>Se cotiza aparte</span>');
+      pick.hidden = false; document.body.classList.toggle('has-pick', location.hash !== '#cotizar');
+    } else { pick.hidden = true; document.body.classList.remove('has-pick'); }
+    if (total > 0) clearErr('servicios');
+  }
+  $('f-receta').addEventListener('change', function () { sync(); if (this.value) clearErr('receta'); });
+
+  /* Fecha mínima */
+  function iso(d) { var m = d.getMonth() + 1, day = d.getDate(); return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day; }
+  var today = iso(new Date());
+  $('f-fecha').min = today;
+  $('f-fecha').addEventListener('change', function () {
+    $('hint-fecha').textContent = this.value === today
+      ? 'Atención el mismo día: depende de la disponibilidad y puede tener recargo.'
+      : 'Reserva con 24 horas de anticipación. El mismo día, solo si hay espacio.';
+  });
+
+  /* Errores */
+  function setErr(key, msg, fieldId) {
+    var e = $('err-' + key); if (!e) return;
+    e.textContent = msg; e.hidden = false;
+    var f = $(fieldId || ('f-' + key)); if (f) f.setAttribute('aria-invalid', 'true');
+  }
+  function clearErr(key) {
+    var e = $('err-' + key); if (e) { e.hidden = true; e.textContent = ''; }
+    var f = $('f-' + key); if (f) f.removeAttribute('aria-invalid');
+  }
+  ['solicitante', 'celular', 'paciente', 'edad', 'distrito', 'direccion', 'fecha', 'franja', 'noemerg', 'consent'].forEach(function (k) {
+    var f = $('f-' + k); if (f) { f.addEventListener('input', function () { clearErr(k); }); f.addEventListener('change', function () { clearErr(k); }); }
+  });
+
+  function val(id) { var e = $(id); return e ? String(e.value || '').trim() : ''; }
+  function normPhone(v) {
+    var d = v.replace(/\D/g, '');
+    if (d.length === 11 && d.indexOf('51') === 0) d = d.slice(2);
+    return /^9\d{8}$/.test(d) ? d : '';
+  }
+  function fmtDate(s) { var p = s.split('-'); return p[2] + '/' + p[1] + '/' + p[0]; }
+  function fmtPhone(d) { return d.slice(0, 3) + ' ' + d.slice(3, 6) + ' ' + d.slice(6); }
+
+  function validate() {
+    var bad = [], first = null;
+    function fail(key, msg, fid) { setErr(key, msg, fid); bad.push(msg); if (!first) first = $(fid || ('f-' + key)) || $('chips'); }
+    ['servicios', 'receta', 'solicitante', 'celular', 'paciente', 'edad', 'distrito', 'direccion', 'fecha', 'franja', 'noemerg', 'consent'].forEach(clearErr);
+
+    if (selectedIds().length === 0 && !sel.otro) fail('servicios', 'Elige al menos un servicio.', 'chips');
+    if (needsRecipe()) {
+      var r = val('f-receta');
+      if (!r) fail('receta', 'Indica si tienes receta médica.');
+      else if (r === 'no') fail('receta', 'Sin receta no podemos aplicar estos servicios. Quita los inyectables o consigue la receta.');
+    }
+    if (val('f-solicitante').length < 5) fail('solicitante', 'Escribe tu nombre completo.');
+    if (!normPhone(val('f-celular'))) fail('celular', 'Escribe un celular de 9 dígitos que empiece con 9.');
+    if (val('f-paciente').length < 5) fail('paciente', 'Escribe el nombre completo del paciente.');
+    var edad = parseInt(val('f-edad'), 10);
+    if (isNaN(edad)) fail('edad', 'Indica la edad del paciente.');
+    else if (edad < 18) fail('edad', 'Por ahora solo atendemos a personas de 18 años o más.');
+    else if (edad > 120) fail('edad', 'Revisa la edad del paciente.');
+    if (val('f-distrito') !== 'ves') fail('distrito', 'Por ahora solo atendemos en Villa El Salvador.');
+    if (val('f-direccion').length < 6) fail('direccion', 'Escribe la dirección con una referencia.');
+    var f = val('f-fecha');
+    if (!f) fail('fecha', 'Elige una fecha.');
+    else if (f < today) fail('fecha', 'La fecha no puede ser anterior a hoy.');
+    if (!val('f-franja')) fail('franja', 'Elige un horario.');
+    if (!$('f-noemerg').checked) fail('noemerg', 'Confirma que no es una emergencia.', 'f-noemerg');
+    if (!$('f-consent').checked) fail('consent', 'Necesitamos tu autorización para usar los datos.', 'f-consent');
+    return { bad: bad, first: first };
+  }
+
+  function buildMsg(code) {
+    var ids = selectedIds(), est = estimate(ids), L = [];
+    L.push('Hola Lic. Paola, quiero solicitar una cotización.' + (code ? ' Mi solicitud es la ' + code + '.' : ''), '');
+    L.push('SERVICIOS:');
+    ids.forEach(function (id) { var s = byId(id); L.push('- ' + s.n + (s.rec ? ' (con receta)' : '')); });
+    if (sel.otro) L.push('- Otro procedimiento (cotizar aparte)');
+    if (est.count > 0) L.push('Estimado referencial: ' + money(est.total) + ' (sin traslado ni recargos)');
+    L.push('');
+    L.push('PACIENTE: ' + val('f-paciente') + ', ' + val('f-edad') + ' años');
+    L.push('SOLICITA: ' + val('f-solicitante') + ' · Cel. ' + fmtPhone(normPhone(val('f-celular'))));
+    L.push('DIRECCIÓN: ' + val('f-direccion') + ' (Villa El Salvador)');
+    L.push('FECHA Y HORARIO: ' + fmtDate(val('f-fecha')) + ', ' + val('f-franja'));
+    if (needsRecipe()) L.push('RECETA MÉDICA: Sí, la tengo');
+    if ($('f-urgente').checked) L.push('URGENTE: La necesito hoy o con urgencia');
+    if (val('f-promo')) L.push('CÓDIGO DE PROMOCIÓN: ' + val('f-promo'));
+    var extra = [['Diagnóstico', 'f-diag'], ['Medicamento y dosis', 'f-med'], ['Alergias', 'f-alergias'], ['Enfermedades de base', 'f-base'],
+      ['Peso (kg)', 'f-peso'], ['Escaleras o ascensor', 'f-acceso'], ['Quién cuida al paciente', 'f-cuida'], ['Mascotas', 'f-mascotas'], ['Comentarios', 'f-notas']];
+    var lines = [];
+    extra.forEach(function (x) { var v = val(x[1]); if (v) lines.push(x[0] + ': ' + v); });
+    if (lines.length) { L.push('', 'INFORMACIÓN CLÍNICA:'); lines.forEach(function (l) { L.push(l); }); }
+    L.push('', 'Confirmo que no es una emergencia y autorizo el uso de estos datos para la cotización.');
+    return L.join('\n');
+  }
+
+  $('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (wf.classList.contains('wiz') && wizCur < fsets.length - 1) { nextStep(); return; }
+    var v = validate(), fe = $('formerr');
+    if (v.bad.length) {
+      fe.textContent = v.bad.length === 1 ? 'Falta corregir un dato. Revisa el campo marcado.' : 'Faltan ' + v.bad.length + ' datos por corregir. Revisa los campos marcados.';
+      fe.hidden = false;
+      if (wf.classList.contains('wiz') && v.first) { var si = stepOf(v.first); if (si >= 0) goStep(si, true); }
+      if (v.first && v.first.focus) { v.first.focus(); if (v.first.scrollIntoView) v.first.scrollIntoView({ block: 'center' }); }
+      return;
+    }
+    fe.hidden = true;
+    var btn = $('submit'), btnTxt = btn.textContent; btn.disabled = true; btn.textContent = 'Enviando…';
+    enviar().then(function (code) { finish(code); }, function () { finish(null); });
+    function finish(code) {
+      btn.disabled = false; btn.textContent = btnTxt;
+      var msg = buildMsg(code);
+      $('msgOut').value = msg;
+      $('waLink').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+      $('saved').hidden = !code; $('notsaved').hidden = !!code;
+      if (code) $('codeOut').textContent = code;
+      $('form').hidden = true; $('result').hidden = false;
+      $('result').scrollIntoView({ block: 'start' });
+    }
+  });
+
+  /* Guarda la solicitud en la base de datos. Si algo falla, la familia igual puede enviar el mensaje por WhatsApp. */
+  function enviar() {
+    var p = {
+      hp: val('f-web'), solicitante: val('f-solicitante'), celular: normPhone(val('f-celular')), paciente: val('f-paciente'), edad: parseInt(val('f-edad'), 10),
+      distrito: val('f-distrito'), direccion: val('f-direccion'), fecha: val('f-fecha'), franja: val('f-franja'),
+      no_emergencia: true, consentimiento: true, servicios: selectedIds(), otro: !!sel.otro, receta: needsRecipe() ? 'si' : 'no',
+      urgente: $('f-urgente').checked, promo: val('f-promo'),
+      clinica: { diagnostico: val('f-diag'), medicamento: val('f-med'), alergias: val('f-alergias'), enfermedades: val('f-base'), peso: val('f-peso'), acceso: val('f-acceso'), cuidador: val('f-cuida'), mascotas: val('f-mascotas'), comentarios: val('f-notas') }
+    };
+    var ctl = window.AbortController ? new AbortController() : null, t = setTimeout(function () { if (ctl) ctl.abort(); }, 12000);
+    return fetch(SB_URL + '/rest/v1/rpc/crear_solicitud', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY },
+      body: JSON.stringify({ p_slug: SLUG, p: p }), signal: ctl ? ctl.signal : undefined
+    }).then(function (r) { clearTimeout(t); return r.ok ? r.json() : null; })
+      .then(function (j) { return j && j.ok && j.codigo ? j.codigo : null; })
+      .catch(function () { clearTimeout(t); return null; });
+  }
+  $('editBtn').addEventListener('click', function () { $('result').hidden = true; $('form').hidden = false; $('form').scrollIntoView({ block: 'start' }); });
+
+  function copy(text, out, ok, ta) {
+    function fb() {
+      try { if (ta) { ta.focus(); ta.select(); ta.setSelectionRange(0, text.length); } var done = document.execCommand && document.execCommand('copy'); out.textContent = done ? ok : 'Mantén presionado el texto y elige Copiar.'; }
+      catch (err) { out.textContent = 'Mantén presionado el texto y elige Copiar.'; }
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { out.textContent = ok; }, fb);
+      else fb();
+    } catch (err) { fb(); }
+  }
+  $('copyBtn').addEventListener('click', function () { copy($('msgOut').value, $('copyMsg'), 'Mensaje copiado. Pégalo en el chat de WhatsApp.', $('msgOut')); });
+  $('copyNum').addEventListener('click', function () { copy('947238365', $('numMsg'), 'Número copiado.', null); });
+
+  sync();
+  /* v2: pestañas (la dirección guarda la pestaña: #inicio, #servicios, #sobre-mi, #info, #cotizar) */
+  var TABS = ['inicio', 'servicios', 'sobre-mi', 'info', 'cotizar'];
+  function showTab(name) {
+    if (TABS.indexOf(name) < 0) name = 'inicio';
+    TABS.forEach(function (t) {
+      $('panel-' + t).hidden = (t !== name);
+      var a = $('tab-' + t); a.setAttribute('aria-selected', t === name ? 'true' : 'false'); a.setAttribute('tabindex', t === name ? '0' : '-1');
+    });
+    $('dock').style.setProperty('--i', TABS.indexOf(name));
+    var pk = $('pick');
+    if (pk) pk.style.visibility = name === 'cotizar' ? 'hidden' : 'visible';
+    document.body.classList.toggle('has-pick', !pk.hidden && name !== 'cotizar');
+    window.scrollTo(0, 0);
+  }
+  function fromHash() { showTab((location.hash || '').replace('#', '')); }
+  window.addEventListener('hashchange', fromHash);
+  $('pick').addEventListener('click', function () {});
+  var segBox = $('seg'), segCur = GROUPS[0].id;
+  GROUPS.forEach(function (g) {
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = g.short || g.t; b.setAttribute('data-seg', g.id);
+    segBox.appendChild(b);
+  });
+  function showGroup(id) {
+    segCur = id;
+    segBox.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-seg') === id ? 'true' : 'false'); });
+    var i = 0;
+    cat.querySelectorAll('.grp').forEach(function (el) { el.hidden = GROUPS[i].id !== id; i++; });
+  }
+  segBox.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) showGroup(b.getAttribute('data-seg')); });
+  showGroup(segCur);
+  fromHash();
+  /* ===== Celular: pasos del formulario, puntos del carrusel y desplegables ===== */
+  var mq = window.matchMedia('(max-width: 699px)');
+  var wf = $('form'), fsets = Array.prototype.slice.call(wf.querySelectorAll('fieldset'));
+  var STEP_NAMES = ['Servicios', 'Quién solicita', 'El paciente', 'Dónde y cuándo', 'Datos clínicos', 'Confirmar'];
+  var STEP_KEYS = [['servicios', 'receta'], ['solicitante', 'celular'], ['paciente', 'edad'], ['distrito', 'direccion', 'fecha', 'franja'], [], ['noemerg', 'consent']];
+  var wizCur = 0;
+  var wizbar = document.createElement('div'); wizbar.className = 'wizbar';
+  wizbar.innerHTML = '<p class="wiz-t"><b id="wizN"></b><span id="wizName"></span></p><div class="wiz-track" aria-hidden="true"><i id="wizFill"></i></div>';
+  wf.insertBefore(wizbar, wf.firstChild);
+  var wiznav = document.createElement('div'); wiznav.className = 'wiznav first';
+  wiznav.innerHTML = '<button type="button" class="btn ghost" id="wizBack">Atrás</button><button type="button" class="btn" id="wizNext">Siguiente</button>';
+  wf.insertBefore(wiznav, $('submit'));
+
+  function stepOf(el) { for (var i = 0; i < fsets.length; i++) if (fsets[i].contains(el)) return i; return -1; }
+  function goStep(i, keepErrors) {
+    wizCur = Math.max(0, Math.min(fsets.length - 1, i));
+    fsets.forEach(function (f, k) { f.classList.toggle('cur', k === wizCur); });
+    $('wizN').textContent = 'Paso ' + (wizCur + 1) + ' de ' + fsets.length;
+    $('wizName').textContent = STEP_NAMES[wizCur];
+    $('wizFill').style.width = (((wizCur + 1) / fsets.length) * 100) + '%';
+    wiznav.classList.toggle('first', wizCur === 0);
+    $('wizNext').textContent = wizCur === fsets.length - 1 ? 'Revisar mi solicitud' : 'Siguiente';
+    if (!keepErrors) $('formerr').hidden = true;
+    var top = wf.getBoundingClientRect().top + window.pageYOffset - 150;
+    window.scrollTo(0, Math.max(0, top));
+  }
+  function nextStep() {
+    if (wizCur === fsets.length - 1) { wf.requestSubmit ? wf.requestSubmit() : $('submit').click(); return; }
+    validate();
+    STEP_KEYS.forEach(function (keys, k) { if (k !== wizCur) keys.forEach(clearErr); });
+    var bad = STEP_KEYS[wizCur].some(function (k) { var e = $('err-' + k); return e && !e.hidden; });
+    if (bad) {
+      var inv = fsets[wizCur].querySelector('[aria-invalid="true"]');
+      if (inv && inv.scrollIntoView) { if (inv.focus) inv.focus(); inv.scrollIntoView({ block: 'center' }); }
+      return;
+    }
+    goStep(wizCur + 1);
+  }
+  $('wizNext').addEventListener('click', nextStep);
+  $('wizBack').addEventListener('click', function () { goStep(wizCur - 1); });
+
+  /* puntos del carrusel de pasos */
+  var stepsEl = document.querySelector('.steps'), dotsEl = document.createElement('div');
+  dotsEl.className = 'dots'; dotsEl.setAttribute('aria-hidden', 'true');
+  var nSteps = stepsEl.children.length;
+  for (var di = 0; di < nSteps; di++) dotsEl.appendChild(document.createElement('i'));
+  stepsEl.parentNode.insertBefore(dotsEl, stepsEl.nextSibling);
+  function updDots() {
+    var w = stepsEl.children[0].getBoundingClientRect().width + 12;
+    var idx = w > 12 ? Math.round(stepsEl.scrollLeft / w) : 0;
+    idx = Math.max(0, Math.min(nSteps - 1, idx));
+    Array.prototype.forEach.call(dotsEl.children, function (d, k) { d.className = k === idx ? 'on' : ''; });
+  }
+  stepsEl.addEventListener('scroll', updDots, { passive: true });
+  updDots();
+
+  var infoClosedOnce = false;
+  function applyMode() {
+    var mob = mq.matches;
+    wf.classList.toggle('wiz', mob);
+    if (mob) goStepQuiet(wizCur); else fsets.forEach(function (f) { f.classList.remove('cur'); });
+    var cr = $('credd'); if (cr) cr.open = !mob;
+    if (mob && !infoClosedOnce) { document.querySelectorAll('details.info-d').forEach(function (d) { d.open = false; }); infoClosedOnce = true; }
+    updDots();
+  }
+  function goStepQuiet(i) {
+    wizCur = i;
+    fsets.forEach(function (f, k) { f.classList.toggle('cur', k === wizCur); });
+    $('wizN').textContent = 'Paso ' + (wizCur + 1) + ' de ' + fsets.length;
+    $('wizName').textContent = STEP_NAMES[wizCur];
+    $('wizFill').style.width = (((wizCur + 1) / fsets.length) * 100) + '%';
+    wiznav.classList.toggle('first', wizCur === 0);
+    $('wizNext').textContent = wizCur === fsets.length - 1 ? 'Revisar mi solicitud' : 'Siguiente';
+  }
+  if (mq.addEventListener) mq.addEventListener('change', applyMode); else if (mq.addListener) mq.addListener(applyMode);
+  applyMode();
+  /* celular: preguntas frecuentes (4 primeras) y ejemplos de urgencias plegables */
+  var faqEl = document.querySelector('#s-preguntas .faq');
+  var faqItems = Array.prototype.slice.call(faqEl.children);
+  faqItems.forEach(function (d, k) { if (k >= 4) d.classList.add('faqx'); });
+  faqEl.classList.add('collapsed');
+  var faqBtn = document.createElement('button'); faqBtn.type = 'button'; faqBtn.className = 'btn ghost faq-more';
+  var extra = faqItems.length - 4;
+  function faqLabel() { faqBtn.textContent = faqEl.classList.contains('collapsed') ? 'Ver ' + extra + ' preguntas más' : 'Ver menos preguntas'; }
+  faqLabel();
+  faqBtn.addEventListener('click', function () { faqEl.classList.toggle('collapsed'); faqLabel(); });
+  faqEl.parentNode.appendChild(faqBtn);
+  function applyExtra() {
+    var mob = mq.matches;
+    document.querySelectorAll('details.exd').forEach(function (d) { d.open = !mob; });
+    faqEl.classList.toggle('collapsed', mob);
+    faqLabel();
+  }
+  if (mq.addEventListener) mq.addEventListener('change', applyExtra); else if (mq.addListener) mq.addListener(applyExtra);
+  applyExtra();
+})();
+</script>
+</body>
+</html>
